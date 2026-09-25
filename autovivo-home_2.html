@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AUTO VIVO — Mobile Auto Service</title>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+
+  /* ============================================================
+     DESIGN SYSTEM TOKENS
+  ============================================================ */
+  :root {
+    --color-brand-primary:     #4A7C10;
+    --color-brand-primary-bg:  #E8F7D2;
+    --color-brand-secondary:   #2D3A06;
+    --color-brand-tertiary:    #619111;
+    --color-brand-lime:        #D2FD9C;
+    --color-neutral-900:       #FFFFFF;
+    --color-neutral-800:       #F7F7F5;
+    --color-neutral-700:       #EFEFEB;
+    --color-neutral-600:       #E0E0DA;
+    --color-neutral-400:       #8C8C86;
+    --color-neutral-200:       #3D3D3A;
+    --color-neutral-100:       #1A1A18;
+    --color-neutral-000:       #0A0A08;
+    --color-success:           #1D7A45;
+    --color-success-bg:        #E8F5EE;
+    --color-warning:           #A05C00;
+    --color-warning-bg:        #FEF3E2;
+    --color-error:             #C0290E;
+    --color-error-bg:          #FDECEA;
+    --color-info:              #4A7C10;
+    --color-info-bg:           #E8F7D2;
+    --font-display:            'Montserrat', sans-serif;
+    --font-body:               'DM Sans', sans-serif;
+    --text-xs:    0.75rem;
+    --text-sm:    0.875rem;
+    --text-base:  1rem;
+    --text-lg:    1.125rem;
+    --text-xl:    1.25rem;
+    --text-2xl:   1.5rem;
+    --text-3xl:   2rem;
+    --text-4xl:   2.75rem;
+    --text-5xl:   3.75rem;
+    --text-6xl:   5rem;
+    --leading-tight:  1.15;
+    --leading-snug:   1.35;
+    --leading-normal: 1.65;
+    --tracking-tight:  -0.02em;
+    --tracking-normal: 0em;
+    --tracking-wide:   0.05em;
+    --tracking-widest: 0.12em;
+    --space-1:   4px;  --space-2:   8px;  --space-3:  12px;  --space-4:  16px;
+    --space-5:  20px;  --space-6:  24px;  --space-8:  32px;  --space-10: 40px;
+    --space-12: 48px;  --space-16: 64px;  --space-20: 80px;  --space-24: 96px;
+    --radius-sm:   4px;  --radius-md:   8px;  --radius-lg:  16px;
+    --radius-xl:  24px;  --radius-full: 9999px;
+    --shadow-sm:  0 1px 4px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-md:  0 2px 12px rgba(0,0,0,0.08), 0 4px 24px rgba(0,0,0,0.05);
+    --shadow-lg:  0 4px 32px rgba(0,0,0,0.10), 0 8px 48px rgba(0,0,0,0.06);
+    --ease-out:        cubic-bezier(0.16, 1, 0.3, 1);
+    --duration-fast:   150ms;
+    --duration-base:   250ms;
+    --duration-slow:   400ms;
+  }
+
+  /* ============================================================
+     RESET & BASE
+  ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--color-neutral-900);
+    color: var(--color-neutral-100);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============================================================
+     DS BUTTONS
+  ============================================================ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-family: var(--font-body);
+    font-weight: 500;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all var(--duration-base) var(--ease-out);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+  }
+  .btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.06);
+    opacity: 0;
+    transition: opacity var(--duration-fast);
+  }
+  .btn:hover::after { opacity: 1; }
+
+  .btn-sm  { font-size: var(--text-xs);   padding: var(--space-2) var(--space-4);   border-radius: var(--radius-sm); }
+  .btn-md  { font-size: var(--text-sm);   padding: var(--space-3) var(--space-6);   border-radius: var(--radius-md); }
+  .btn-lg  { font-size: var(--text-base); padding: var(--space-4) var(--space-8);   border-radius: var(--radius-md); }
+  .btn-xl  { font-size: var(--text-lg);   padding: var(--space-5) var(--space-10);  border-radius: var(--radius-lg); }
+
+  .btn-primary {
+    background: var(--color-brand-primary);
+    color: #fff;
+    box-shadow: 0 1px 4px rgba(74,124,16,0.2);
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(74,124,16,0.28); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-neutral-200);
+    border: 1px solid var(--color-neutral-600);
+  }
+  .btn-ghost:hover { border-color: var(--color-neutral-200); color: var(--color-neutral-000); background: var(--color-neutral-800); }
+
+  /* ============================================================
+     DS NAVIGATION
+  ============================================================ */
+  .nav {
+    background: rgba(255,255,255,0.92);
+    border-bottom: 1px solid var(--color-neutral-600);
+    padding: 0 var(--space-8);
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .nav-logo-img {
+    height: 36px;
+    width: auto;
+    display: block;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-neutral-200);
+    text-decoration: none;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    transition: color var(--duration-fast);
+  }
+  .nav-links a:hover { color: var(--color-brand-primary); }
+  .nav-links a.active { color: var(--color-neutral-000); }
+
+  .nav-actions { display: flex; align-items: center; gap: var(--space-3); }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--color-neutral-600);
+    border-radius: var(--radius-md);
+    color: var(--color-neutral-200);
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: var(--text-xl);
+    line-height: 1;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--duration-fast);
+  }
+  .nav-toggle:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
+
+  /* ============================================================
+     DS FOOTER
+  ============================================================ */
+  .footer {
+    background: var(--color-neutral-800);
+    border-top: 1px solid var(--color-neutral-600);
+    padding: var(--space-16) var(--space-8) var(--space-8);
+  }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--space-12);
+    margin-bottom: var(--space-12);
+  }
+  .footer-logo-img {
+    height: 44px;
+    width: auto;
+    display: block;
+    margin-bottom: var(--space-4);
+  }
+  .footer-tagline {
+    font-size: var(--text-sm);
+    color: var(--color-neutral-400);
+    line-height: var(--leading-normal);
+    max-width: 300px;
+    margin-bottom: var(--space-6);
+  }
+  .footer-col-title {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-neutral-000);
+    margin-bottom: var(--space-4);
+  }
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .footer-links a {
+    font-size: var(--text-sm);
+    color: var(--color-neutral-400);
+    text-decoration: none;
+    transition: color var(--duration-fast);
+  }
+  .footer-links a:hover { color: var(--color-brand-primary); }
+
+  .footer-social { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+  .social-link {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-neutral-600);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-neutral-400);
+    text-decoration: none;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+    transition: all var(--duration-fast);
+  }
+  .social-link:hover {
+    border-color: var(--color-brand-primary);
+    color: var(--color-brand-primary);
+    background: var(--color-brand-primary-bg);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--color-neutral-700);
+    padding-top: var(--space-6);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+  .footer-copy { font-size: var(--text-xs); color: var(--color-neutral-400); }
+  .footer-legal { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+  .footer-legal a { font-size: var(--text-xs); color: var(--color-neutral-400); text-decoration: none; transition: color .15s; }
+  .footer-legal a:hover { color: var(--color-brand-primary); }
+  .footer-legal span { color: var(--color-neutral-600); font-size: var(--text-xs); }
+
+  /* ============================================================
+     ANIMATIONS
+  ============================================================ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-14px); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50%       { opacity: 0.6; transform: scale(1.05); }
+  }
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .anim { animation: fadeUp 0.7s var(--ease-out) both; }
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.15s; }
+  .d3 { animation-delay: 0.25s; }
+  .d4 { animation-delay: 0.35s; }
+  .d5 { animation-delay: 0.45s; }
+
+  /* ============================================================
+     SHARED LAYOUT
+  ============================================================ */
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-8);
+  }
+  .eyebrow {
+    display: block;
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-brand-primary);
+    margin-bottom: var(--space-4);
+  }
+  .section-header { text-align: center; margin-bottom: var(--space-16); }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-neutral-000);
+    line-height: var(--leading-tight);
+  }
+  .section-title span { color: var(--color-brand-primary); }
+  .section-subtitle {
+    margin-top: var(--space-4);
+    color: var(--color-neutral-400);
+    font-size: var(--text-lg);
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: var(--leading-normal);
+  }
+
+  /* ============================================================
+     HERO SECTION
+  ============================================================ */
+  .hero {
+    position: relative;
+    padding: var(--space-24) var(--space-8);
+    overflow: hidden;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Atmospheric backgrounds */
+  .hero-bg-glow {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 75% 65% at 72% 50%, rgba(74,124,16,0.06) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 50% at 80% 15%, rgba(210,253,156,0.45) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 30% at 10% 80%, rgba(74,124,16,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(74,124,16,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,124,16,0.07) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse 90% 90% at center, transparent 15%, black 70%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 90% at center, transparent 15%, black 70%);
+  }
+
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Live badge */
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: var(--color-brand-primary-bg);
+    border: 1px solid rgba(74,124,16,0.3);
+    border-radius: var(--radius-full);
+    padding: var(--space-1) var(--space-4) var(--space-1) var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+  .hero-badge-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--color-brand-primary);
+    border-radius: var(--radius-full);
+    animation: pulse-glow 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  .hero-badge-text {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-brand-primary);
+  }
+
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: var(--text-6xl);
+    font-weight: 700;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-neutral-000);
+    margin-bottom: var(--space-6);
+  }
+  .hero-headline span { color: var(--color-brand-primary); }
+
+  .hero-body {
+    font-size: var(--text-lg);
+    color: var(--color-neutral-400);
+    line-height: var(--leading-normal);
+    max-width: 480px;
+    margin-bottom: var(--space-10);
+  }
+
+  .hero-actions { display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap; }
+
+  .hero-stats {
+    display: flex;
+    gap: var(--space-8);
+    margin-top: var(--space-12);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-neutral-600);
+  }
+  .hero-stat-num {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--color-neutral-000);
+    letter-spacing: var(--tracking-tight);
+    line-height: 1;
+  }
+  .hero-stat-num em { color: var(--color-brand-primary); font-style: normal; }
+  a.hero-stat-link {
+    text-decoration: none;
+    display: block;
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+    margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-3));
+    transition: background var(--duration-base) var(--ease-out);
+    cursor: pointer;
+  }
+  a.hero-stat-link:hover { background: var(--color-neutral-800); }
+  a.hero-stat-link:hover .hero-stat-label { color: var(--color-brand-primary); }
+  .hero-stat-label {
+    font-size: var(--text-xs);
+    color: var(--color-neutral-400);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    margin-top: var(--space-2);
+    transition: color var(--duration-base) var(--ease-out);
+  }
+
+  /* ---- Hero Visual ---- */
+  .hero-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-photo-stage {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+  }
+
+  /* Main hero photo */
+  .hero-photo-main {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius-xl);
+    display: block;
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Secondary floating photo */
+  .hero-photo-secondary {
+    position: absolute;
+    bottom: -24px;
+    left: -28px;
+    width: 52%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    border: 3px solid var(--color-neutral-900);
+    box-shadow: var(--shadow-lg);
+    animation: float 5s ease-in-out infinite;
+  }
+
+  /* Floating info chips */
+  .float-chip {
+    position: absolute;
+    background: var(--color-neutral-800);
+    border: 1px solid var(--color-neutral-600);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3) var(--space-4);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    box-shadow: var(--shadow-md);
+    z-index: 3;
+    animation: fadeUp 0.9s var(--ease-out) both;
+    white-space: nowrap;
+  }
+  .float-chip-icon { font-size: 22px; flex-shrink: 0; }
+  .float-chip-label {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--color-neutral-000);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    display: block;
+  }
+  .float-chip-sub { font-size: var(--text-xs); color: var(--color-neutral-400); display: block; }
+
+  /* Chips hang off outside corners — top-left and bottom-right so they don't
+     cover the photo subject or collide with the secondary photo (bottom-left) */
+  .chip-top-right { top: -18px;    left: -22px; right: auto; animation-delay: 0.4s; }
+  .chip-bot-left  { bottom: -18px; right: -22px; left: auto; animation-delay: 0.6s; }
+
+  /* ============================================================
+     TRUST STRIP
+  ============================================================ */
+  .trust-strip {
+    background: var(--color-neutral-800);
+    border-top: 1px solid var(--color-neutral-600);
+    border-bottom: 1px solid var(--color-neutral-600);
+    padding: var(--space-5) 0;
+    overflow: hidden;
+  }
+  .trust-strip-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-10);
+    flex-wrap: wrap;
+  }
+  .trust-item { display: flex; align-items: center; gap: var(--space-3); }
+  .trust-icon { font-size: 18px; }
+  .trust-label {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-neutral-200);
+    white-space: nowrap;
+  }
+  .trust-sep { width: 1px; height: 20px; background: var(--color-neutral-600); flex-shrink: 0; }
+
+  /* ============================================================
+     SELLING POINTS
+  ============================================================ */
+  .section-selling {
+    padding: var(--space-24) 0;
+    background: var(--color-neutral-900);
+  }
+  .selling-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+  .selling-card {
+    background: var(--color-neutral-800);
+    border: 1px solid var(--color-neutral-600);
+    border-radius: var(--radius-xl);
+    padding: var(--space-10) var(--space-8);
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--duration-base) var(--ease-out),
+                border-color var(--duration-base) var(--ease-out);
+  }
+  /* Top accent line */
+  .selling-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-brand-primary), transparent);
+    opacity: 0;
+    transition: opacity var(--duration-base);
+  }
+  /* Subtle corner glow */
+  .selling-card::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(74,124,16,0.05) 0%, transparent 70%);
+    border-radius: var(--radius-full);
+    pointer-events: none;
+  }
+  .selling-card:hover { transform: translateY(-8px); border-color: rgba(74,124,16,0.35); box-shadow: var(--shadow-md); }
+  .selling-card:hover::before { opacity: 1; }
+
+  .selling-icon {
+    width: 68px;
+    height: 68px;
+    background: var(--color-brand-primary-bg);
+    border: 1px solid rgba(74,124,16,0.2);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    margin-bottom: var(--space-6);
+    position: relative;
+    z-index: 1;
+  }
+  .selling-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-neutral-000);
+    line-height: var(--leading-snug);
+    margin-bottom: var(--space-3);
+    position: relative;
+    z-index: 1;
+  }
+  .selling-card-body {
+    font-size: var(--text-base);
+    color: var(--color-neutral-400);
+    line-height: var(--leading-normal);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ============================================================
+     PROCESS SECTION
+  ============================================================ */
+  .section-process {
+    padding: var(--space-24) 0;
+    background: var(--color-neutral-800);
+    position: relative;
+    overflow: hidden;
+  }
+  .section-process::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(74,124,16,0.04) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+    position: relative;
+  }
+
+  /* Connector line — visible only on large screens */
+  .process-connector {
+    position: absolute;
+    top: 36px;
+    left: calc(12.5% + 30px);
+    right: calc(12.5% + 30px);
+    height: 1px;
+    background: linear-gradient(90deg,
+      var(--color-brand-secondary) 0%,
+      var(--color-brand-primary) 50%,
+      var(--color-brand-secondary) 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .process-step {
+    text-align: center;
+    padding: var(--space-6) var(--space-4);
+    position: relative;
+    z-index: 1;
+  }
+  .process-num {
+    width: 72px;
+    height: 72px;
+    border-radius: var(--radius-full);
+    background: var(--color-neutral-900);
+    border: 2px solid var(--color-brand-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-5);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-brand-primary);
+    transition: all var(--duration-base) var(--ease-out);
+  }
+  .process-step:hover .process-num {
+    background: var(--color-brand-primary);
+    border-color: var(--color-brand-primary);
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(74,124,16,0.28);
+  }
+  .process-step-icon {
+    font-size: 32px;
+    display: block;
+    margin-bottom: var(--space-4);
+  }
+  .process-step-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-neutral-000);
+    letter-spacing: var(--tracking-tight);
+    margin-bottom: var(--space-2);
+  }
+  .process-step-body {
+    font-size: var(--text-sm);
+    color: var(--color-neutral-400);
+    line-height: var(--leading-normal);
+  }
+
+  /* ============================================================
+     COMPARISON — AUTOVIVO VS. TRADITIONAL SHOP
+  ============================================================ */
+  .section-compare {
+    padding: var(--space-24) 0;
+    background: var(--color-neutral-900);
+  }
+
+  .compare-card {
+    background: var(--color-neutral-800);
+    border: 1px solid var(--color-neutral-600);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .compare-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  .compare-table {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+
+  .compare-row, .compare-row-head { display: contents; }
+
+  .compare-head-cell {
+    padding: var(--space-6) var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--color-neutral-600);
+    text-align: center;
+  }
+  .compare-head-cell:first-child { text-align: left; padding-left: var(--space-8); }
+  .compare-head-label {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-neutral-400);
+  }
+  .compare-head-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-brand-primary);
+    letter-spacing: var(--tracking-tight);
+  }
+  .compare-head-brand::before {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: var(--radius-full);
+    background: var(--color-brand-primary);
+    flex-shrink: 0;
+  }
+
+  .compare-feature {
+    padding: var(--space-5) var(--space-4) var(--space-5) var(--space-8);
+    border-bottom: 1px solid var(--color-neutral-700);
+    font-size: var(--text-sm);
+    color: var(--color-neutral-200);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+  }
+  .compare-row:last-child .compare-feature,
+  .compare-row:last-child .compare-cell { border-bottom: none; }
+
+  .compare-cell {
+    padding: var(--space-5) var(--space-4);
+    border-bottom: 1px solid var(--color-neutral-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    text-align: center;
+    font-size: var(--text-sm);
+  }
+  .compare-cell.is-us {
+    background: rgba(74,124,16,0.06);
+    color: var(--color-neutral-000);
+    font-weight: 500;
+  }
+  .compare-cell.is-them { color: var(--color-neutral-400); }
+
+  .compare-icon {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    line-height: 1;
+  }
+  .compare-icon.yes { background: var(--color-brand-primary); color: #fff; }
+  .compare-icon.no  { background: var(--color-neutral-600);   color: var(--color-neutral-400); }
+
+  .compare-footnote {
+    margin-top: var(--space-5);
+    font-size: var(--text-xs);
+    color: var(--color-neutral-400);
+    text-align: center;
+  }
+
+  .compare-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-8);
+  }
+
+  /* ============================================================
+     CTA SECTION
+  ============================================================ */
+  .section-cta {
+    padding: var(--space-24) 0;
+    background: var(--color-neutral-900);
+    position: relative;
+    overflow: hidden;
+  }
+  .section-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 90% 80% at 50% 50%, rgba(74,124,16,0.05) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 40% at 20% 20%, rgba(210,253,156,0.25) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cta-box {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding: 0 var(--space-8);
+  }
+
+  /* Decorative ring around CTA */
+  .cta-ring {
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(74,124,16,0.1);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .cta-ring-2 {
+    width: 700px;
+    height: 700px;
+    border-color: rgba(74,124,16,0.05);
+  }
+
+  .cta-headline {
+    font-family: var(--font-display);
+    font-size: var(--text-5xl);
+    font-weight: 700;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-neutral-000);
+    margin-bottom: var(--space-6);
+  }
+  .cta-headline span { color: var(--color-brand-primary); }
+
+  .cta-body {
+    font-size: var(--text-lg);
+    color: var(--color-neutral-400);
+    margin-bottom: var(--space-10);
+    line-height: var(--leading-normal);
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ============================================================
+     RESPONSIVE — TABLET (≤ 1024px)
+  ============================================================ */
+  @media (max-width: 1024px) {
+    .hero-headline  { font-size: var(--text-5xl); }
+    .hero-inner     { gap: var(--space-10); }
+    .chip-top-right { left: -10px; right: auto; }
+    .chip-bot-left  { right: -10px; left: auto; }
+
+    .process-grid          { grid-template-columns: repeat(2, 1fr); gap: var(--space-8); }
+    .process-connector     { display: none; }
+
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ============================================================
+     RESPONSIVE — MOBILE (≤ 768px)
+  ============================================================ */
+  @media (max-width: 768px) {
+    /* Nav */
+    .nav { padding: 0 var(--space-5); }
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+
+    /* Slide-down panel — Apple-style */
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-neutral-600);
+      padding: 0;
+      z-index: 99;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      /* slide in from top */
+      animation: menuSlideDown 0.28s var(--ease-out) both;
+    }
+
+    @keyframes menuSlideDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Each link row */
+    .nav-links.open li {
+      border-bottom: 1px solid var(--color-neutral-700);
+      list-style: none;
+    }
+    .nav-links.open li:last-child { border-bottom: none; }
+
+    .nav-links.open a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: var(--space-5) var(--space-6);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      font-weight: 500;
+      color: var(--color-neutral-100);
+      text-decoration: none;
+      letter-spacing: 0;
+      text-transform: none;
+      transition: background var(--duration-fast), color var(--duration-fast);
+    }
+    .nav-links.open a::after {
+      content: '';
+      display: block;
+      width: 6px; height: 6px;
+      border-top: 1.5px solid var(--color-neutral-400);
+      border-right: 1.5px solid var(--color-neutral-400);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+    .nav-links.open a:hover  { background: var(--color-neutral-800); color: var(--color-brand-primary); }
+    .nav-links.open a.active { color: var(--color-brand-primary); }
+
+    /* Book Now CTA row */
+    .nav-menu-cta { background: var(--color-neutral-800); }
+    .nav-menu-cta a {
+      color: var(--color-brand-primary) !important;
+      font-weight: 600 !important;
+    }
+    .nav-menu-cta a::after { border-color: var(--color-brand-primary) !important; }
+
+    /* Dim backdrop behind panel */
+    .nav-backdrop {
+      display: none;
+      position: fixed;
+      top: 72px; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.35);
+      z-index: 98;
+      animation: fadeIn 0.2s ease both;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .nav-backdrop.visible { display: block; }
+
+    /* Hero */
+    .hero {
+      padding: var(--space-16) var(--space-5) var(--space-12);
+      min-height: auto;
+    }
+    .hero-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: var(--space-10);
+    }
+    .hero-headline { font-size: var(--text-4xl); }
+    .hero-body     { margin-left: auto; margin-right: auto; }
+    .hero-actions  { justify-content: center; }
+    .hero-badge    { margin: 0 auto var(--space-6); }
+    .hero-stats    { justify-content: center; }
+    .hero-visual   { order: -1; }
+    .hero-photo-stage { max-width: 340px; }
+    .hero-photo-secondary { width: 44%; left: -16px; bottom: -16px; }
+    .chip-top-right { left: -8px; right: auto; top: -14px; }
+    .chip-bot-left  { right: -8px; left: auto; bottom: -14px; }
+    .float-chip { padding: var(--space-2) var(--space-3); gap: var(--space-2); }
+    .float-chip-icon { font-size: 16px; }
+    .float-chip-label, .float-chip-sub { font-size: 10px; }
+
+    /* Selling */
+    .section-selling { padding: var(--space-16) 0; }
+    .selling-grid { grid-template-columns: 1fr; gap: var(--space-5); }
+    .selling-card { padding: var(--space-8) var(--space-6); }
+
+    /* Process */
+    .section-process { padding: var(--space-16) 0; }
+    .process-grid    { grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+
+    /* Compare */
+    .section-compare { padding: var(--space-16) 0; }
+    .compare-table   { grid-template-columns: 1.1fr 1fr 1fr; min-width: 560px; }
+    .compare-head-cell, .compare-feature, .compare-cell { padding: var(--space-4) var(--space-3); font-size: var(--text-xs); }
+    .compare-feature            { padding-left: var(--space-5); }
+    .compare-head-cell:first-child { padding-left: var(--space-5); }
+
+    /* CTA */
+    .section-cta { padding: var(--space-16) 0; }
+    .cta-headline { font-size: var(--text-4xl); }
+    .cta-ring, .cta-ring-2 { display: none; }
+
+    /* Section text */
+    .section-title    { font-size: var(--text-3xl); }
+    .section-header   { margin-bottom: var(--space-10); }
+
+    /* Trust */
+    .trust-strip-inner {
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: var(--space-2);
+    }
+    .trust-sep { display: none; }
+
+    /* Footer */
+    .footer { padding: var(--space-12) var(--space-5) var(--space-6); }
+    .footer-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+    .footer-tagline { max-width: 100%; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+
+    /* Shared */
+    .section-inner { padding: 0 var(--space-5); }
+  }
+
+  /* ============================================================
+     RESPONSIVE — SMALL MOBILE (≤ 480px)
+  ============================================================ */
+  @media (max-width: 480px) {
+    .hero-headline  { font-size: var(--text-3xl); }
+    .hero-stats     { flex-direction: column; gap: var(--space-5); align-items: center; }
+    .hero-actions   { flex-direction: column; width: 100%; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .chip-top-right,
+    .chip-bot-left  { display: none; }
+
+    .process-grid   { grid-template-columns: 1fr; }
+    .cta-headline   { font-size: var(--text-3xl); }
+
+    .hero-photo-stage { max-width: 280px; }
+    .hero-photo-secondary { width: 40%; left: -10px; bottom: -10px; }
+
+    .reviews-viewport { padding: 0 var(--space-5); }
+    .review-card      { min-width: 288px; }
+    .reviews-nav      { display: none; }
+    .section-reviews  { padding: var(--space-16) 0; }
+  }
+
+  /* ============================================================
+     GOOGLE REVIEWS SECTION
+  ============================================================ */
+  .section-reviews {
+    padding: var(--space-24) 0;
+    background: var(--color-neutral-800);
+    position: relative;
+    overflow: hidden;
+  }
+  .section-reviews::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% 100%, rgba(74,124,16,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .reviews-header {
+    text-align: center;
+    margin-bottom: var(--space-10);
+  }
+  .reviews-google-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: var(--color-neutral-900);
+    border: 1px solid var(--color-neutral-700);
+    border-radius: var(--radius-full);
+    padding: var(--space-2) var(--space-4);
+    margin-bottom: var(--space-5);
+  }
+  .reviews-google-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  .reviews-google-badge-text {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-neutral-200);
+    letter-spacing: 0.04em;
+  }
+  .reviews-google-badge-stars {
+    font-size: var(--text-xs);
+    color: #FBBC04;
+    letter-spacing: 1px;
+  }
+  .reviews-headline {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--color-neutral-000);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+  }
+  .reviews-headline span { color: var(--color-brand-primary); }
+  .reviews-sub {
+    font-size: var(--text-base);
+    color: var(--color-neutral-400);
+  }
+
+  /* Carousel */
+  .reviews-carousel-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  .reviews-nav {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-neutral-600);
+    background: var(--color-neutral-900);
+    color: var(--color-neutral-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    transition: all var(--duration-base) var(--ease-out);
+    z-index: 2;
+  }
+  .reviews-nav:hover {
+    border-color: var(--color-brand-primary);
+    color: var(--color-brand-primary);
+  }
+  .reviews-nav:disabled {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+  }
+  .reviews-viewport {
+    overflow: hidden;
+    flex: 1;
+    padding: var(--space-2) 0 var(--space-4);
+  }
+  .reviews-track {
+    display: flex;
+    gap: var(--space-5);
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    will-change: transform;
+  }
+
+  /* Card */
+  .review-card {
+    flex: 0 0 calc((100% - 2 * var(--space-5)) / 3);
+    background: var(--color-neutral-900);
+    border: 1px solid var(--color-neutral-700);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    transition: border-color var(--duration-base) var(--ease-out),
+                box-shadow var(--duration-base) var(--ease-out);
+  }
+  .review-card:hover {
+    border-color: var(--color-neutral-600);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .review-card-top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .review-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+    font-family: var(--font-body);
+  }
+  .review-name {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-neutral-000);
+    line-height: 1.3;
+  }
+  .review-source {
+    font-size: var(--text-xs);
+    color: var(--color-neutral-400);
+    margin-top: 2px;
+  }
+  .review-stars {
+    font-size: 14px;
+    color: #FBBC04;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .review-body {
+    font-size: var(--text-sm);
+    color: var(--color-neutral-200);
+    line-height: var(--leading-normal);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .review-photo-strip {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    margin-top: var(--space-1);
+  }
+  .review-photo {
+    width: 72px;
+    height: 60px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    border: 1px solid var(--color-neutral-700);
+  }
+
+  /* Dots */
+  .reviews-dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-top: var(--space-6);
+  }
+  .reviews-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--color-neutral-600);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all var(--duration-base) var(--ease-out);
+  }
+  .reviews-dot.active {
+    background: var(--color-brand-primary);
+    width: 20px;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+  NAVIGATION
+========================================================= -->
+<nav class="nav" id="navbar" role="navigation" aria-label="Main navigation">
+  <a href="#" class="nav-logo" aria-label="AutoVivo Home"><img src="LOGO.PNG" alt="AutoVivo" class="nav-logo-img"></a>
+
+  <ul class="nav-links" id="nav-links" role="list">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="autovivo-services.html">Services</a></li>
+    <li><a href="#services">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li class="nav-menu-cta"><a href="autovivo-vehicle-select.html">Book Now</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <a href="autovivo-vehicle-select.html" class="btn btn-primary btn-md">Book Now</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="2" y1="5" x2="16" y2="5"/><line x1="2" y1="9" x2="16" y2="9"/><line x1="2" y1="13" x2="16" y2="13"/></svg>
+    </button>
+  </div>
+</nav>
+<div class="nav-backdrop" id="nav-backdrop"></div>
+
+
+<!-- =========================================================
+  HERO
+========================================================= -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-bg-glow" aria-hidden="true"></div>
+  <div class="hero-grid"    aria-hidden="true"></div>
+
+  <div class="hero-inner">
+
+    <!-- LEFT — COPY -->
+    <div>
+      <div class="hero-badge anim d1" aria-label="Now serving your area">
+        <span class="hero-badge-dot" aria-hidden="true"></span>
+        <span class="hero-badge-text">Now Serving Your Area</span>
+      </div>
+
+      <h1 class="hero-headline anim d2">
+        Your Car.<br>
+        Our Garage.<br>
+        <span>Wherever You Are.</span>
+      </h1>
+
+      <p class="hero-body anim d3">
+        Professional auto repair and maintenance delivered right to your driveway, office, or wherever life takes you. No waiting rooms. No tow trucks. Just expert service, on your schedule.
+      </p>
+
+      <div class="hero-actions anim d4">
+        <a href="autovivo-vehicle-select.html"  class="btn btn-primary btn-xl">Book Now</a>
+        <a href="autovivo-services.html" class="btn btn-ghost btn-xl">Services</a>
+      </div>
+
+      <div class="hero-stats anim d5" aria-label="Key statistics">
+        <a href="#reviews" class="hero-stat-link" aria-label="2,000+ happy clients — see customer reviews">
+          <div class="hero-stat-num">2K<em>+</em></div>
+          <div class="hero-stat-label">Happy Clients</div>
+        </a>
+        <a href="#reviews" class="hero-stat-link" aria-label="98% satisfaction rate — see customer reviews">
+          <div class="hero-stat-num">98<em>%</em></div>
+          <div class="hero-stat-label">Satisfaction Rate</div>
+        </a>
+        <a href="#reviews" class="hero-stat-link" aria-label="5 star average rating — see customer reviews">
+          <div class="hero-stat-num">5<em>★</em></div>
+          <div class="hero-stat-label">Avg. Rating</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT — VISUAL -->
+    <div class="hero-visual anim d3" aria-hidden="true">
+      <div class="hero-photo-stage">
+        <img
+          src="Photos/tech_outside_pic_1.1.jpeg"
+          alt="AutoVivo technician performing on-site repair"
+          class="hero-photo-main"
+        >
+        <img
+          src="Photos/Landscape_laptop_car.jpeg"
+          alt="Diagnostic scan in progress"
+          class="hero-photo-secondary"
+        >
+
+        <div class="float-chip chip-top-right">
+          <span class="float-chip-icon">🔧</span>
+          <div>
+            <span class="float-chip-label">On-Site Repair</span>
+            <span class="float-chip-sub">At your location</span>
+          </div>
+        </div>
+
+        <div class="float-chip chip-bot-left">
+          <span class="float-chip-icon">⚡</span>
+          <div>
+            <span class="float-chip-label">Fast Booking</span>
+            <span class="float-chip-sub">Confirmed in minutes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================================================
+  TRUST STRIP
+========================================================= -->
+<div class="trust-strip" role="list" aria-label="Trust indicators">
+  <div class="trust-strip-inner">
+    <div class="trust-item" role="listitem">
+      <span class="trust-icon" aria-hidden="true">✓</span>
+      <span class="trust-label">Licensed &amp; Insured</span>
+    </div>
+    <div class="trust-sep" aria-hidden="true"></div>
+    <div class="trust-item" role="listitem">
+      <span class="trust-icon" aria-hidden="true">🔒</span>
+      <span class="trust-label">Work Guaranteed</span>
+    </div>
+    <div class="trust-sep" aria-hidden="true"></div>
+    <div class="trust-item" role="listitem">
+      <span class="trust-icon" aria-hidden="true">📍</span>
+      <span class="trust-label">We Come to You</span>
+    </div>
+    <div class="trust-sep" aria-hidden="true"></div>
+    <div class="trust-item" role="listitem">
+      <span class="trust-icon" aria-hidden="true">⏱</span>
+      <span class="trust-label">Same-Day Availability</span>
+    </div>
+    <div class="trust-sep" aria-hidden="true"></div>
+    <div class="trust-item" role="listitem">
+      <span class="trust-icon" aria-hidden="true">💳</span>
+      <span class="trust-label">Transparent Pricing</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- =========================================================
+  SELLING POINTS — WHY AUTO VIVO
+========================================================= -->
+<section class="section-selling" id="services" aria-labelledby="selling-title">
+  <div class="section-inner">
+
+    <div class="section-header anim">
+      <span class="eyebrow">Why Auto Vivo</span>
+      <h2 class="section-title" id="selling-title">Built Around <span>Your Life</span></h2>
+      <p class="section-subtitle">
+        We've completely reimagined the auto repair experience — because your time is valuable and your car deserves the best.
+      </p>
+    </div>
+
+    <div class="selling-grid">
+
+      <!-- Card 1 -->
+      <article class="selling-card anim d1">
+        <div class="selling-icon" aria-hidden="true">🚐</div>
+        <h3 class="selling-card-title">Mobile Auto Service</h3>
+        <p class="selling-card-body">
+          Skip the shop entirely. Our fully-equipped mobile units come directly to your home, office, or any location of your choosing — delivering the same quality repairs you'd expect from a traditional garage, without any of the hassle.
+        </p>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="selling-card anim d2">
+        <div class="selling-icon" aria-hidden="true">🛠️</div>
+        <h3 class="selling-card-title">Expert Technicians</h3>
+        <p class="selling-card-body">
+          Every technician on our team is certified, highly experienced, and genuinely passionate about cars. From routine oil changes to complex diagnostics, your vehicle is always in the hands of a true professional you can trust.
+        </p>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="selling-card anim d3">
+        <div class="selling-icon" aria-hidden="true">📱</div>
+        <h3 class="selling-card-title">Simple &amp; Easy Booking</h3>
+        <p class="selling-card-body">
+          Schedule your service in minutes with our streamlined online system. Choose your service, pick a time that works for you, and receive instant confirmation — no phone calls, no hold music, no stress.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+  PROCESS — HOW IT WORKS
+========================================================= -->
+<section class="section-process" id="process" aria-labelledby="process-title">
+  <div class="section-inner">
+
+    <div class="section-header anim">
+      <span class="eyebrow">Our Process</span>
+      <h2 class="section-title" id="process-title">How It <span>Works</span></h2>
+      <p class="section-subtitle">
+        Four simple steps from booking to a fully serviced vehicle — right where you are.
+      </p>
+    </div>
+
+    <div class="process-grid" role="list" aria-label="Service process steps">
+      <div class="process-connector" aria-hidden="true"></div>
+
+      <!-- Step 1 -->
+      <div class="process-step anim d1" role="listitem">
+        <div class="process-num" aria-label="Step 1">01</div>
+        <span class="process-step-icon" aria-hidden="true">💻</span>
+        <h3 class="process-step-title">Book Online</h3>
+        <p class="process-step-body">
+          Select your service and pick a date and time that fits your schedule — all done in minutes from any device, anywhere.
+        </p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="process-step anim d2" role="listitem">
+        <div class="process-num" aria-label="Step 2">02</div>
+        <span class="process-step-icon" aria-hidden="true">✅</span>
+        <h3 class="process-step-title">Secure Confirmation</h3>
+        <p class="process-step-body">
+          Get instant booking confirmation with your appointment details, assigned technician info, and a fully transparent service quote.
+        </p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="process-step anim d3" role="listitem">
+        <div class="process-num" aria-label="Step 3">03</div>
+        <span class="process-step-icon" aria-hidden="true">🚐</span>
+        <h3 class="process-step-title">We Come to You</h3>
+        <p class="process-step-body">
+          Your technician arrives at your chosen location, fully equipped and ready to work — on time, every single time.
+        </p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="process-step anim d4" role="listitem">
+        <div class="process-num" aria-label="Step 4">04</div>
+        <span class="process-step-icon" aria-hidden="true">🏁</span>
+        <h3 class="process-step-title">Complete Service</h3>
+        <p class="process-step-body">
+          Sit back while we handle everything. Once complete, you'll receive a full service report and can pay securely on-site.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+  COMPARISON — AUTOVIVO VS. TRADITIONAL SHOP
+========================================================= -->
+<section class="section-compare" id="compare" aria-labelledby="compare-title">
+  <div class="section-inner">
+
+    <div class="section-header anim">
+      <span class="eyebrow">The Difference</span>
+      <h2 class="section-title" id="compare-title">AutoVivo <span>vs.</span> The Traditional Shop</h2>
+      <p class="section-subtitle">
+        Same expert repairs — without the drive, the wait, or the surprises.
+      </p>
+    </div>
+
+    <div class="compare-card anim d2">
+      <div class="compare-scroll">
+        <div class="compare-table" role="table" aria-label="AutoVivo compared to a traditional auto shop">
+
+          <div class="compare-row-head" role="row">
+            <div class="compare-head-cell" role="columnheader">
+              <span class="compare-head-label">Feature</span>
+            </div>
+            <div class="compare-head-cell" role="columnheader">
+              <span class="compare-head-brand">AutoVivo</span>
+            </div>
+            <div class="compare-head-cell" role="columnheader">
+              <span class="compare-head-label">Traditional Shop</span>
+            </div>
+          </div>
+
+          <div class="compare-row" role="row">
+            <div class="compare-feature" role="rowheader">Where it happens</div>
+            <div class="compare-cell is-us" role="cell">
+              <span class="compare-icon yes" aria-hidden="true">✓</span> At your home, office, or curb
+            </div>
+            <div class="compare-cell is-them" role="cell">
+              <span class="compare-icon no" aria-hidden="true">✕</span> You drive there and wait
+            </div>
+          </div>
+
+          <div class="compare-row" role="row">
+            <div class="compare-feature" role="rowheader">Average wait</div>
+            <div class="compare-cell is-us" role="cell">
+              <span class="compare-icon yes" aria-hidden="true">✓</span> 0 min — we come to you
+            </div>
+            <div class="compare-cell is-them" role="cell">
+              <span class="compare-icon no" aria-hidden="true">✕</span> 30–90+ min in a waiting room
+            </div>
+          </div>
+
+          <div class="compare-row" role="row">
+            <div class="compare-feature" role="rowheader">Pricing</div>
+            <div class="compare-cell is-us" role="cell">
+              <span class="compare-icon yes" aria-hidden="true">✓</span> Upfront, transparent quote
+            </div>
+            <div class="compare-cell is-them" role="cell">
+              <span class="compare-icon no" aria-hidden="true">✕</span> Estimate can change mid-service
+            </div>
+          </div>
+
+          <div class="compare-row" role="row">
+            <div class="compare-feature" role="rowheader">Booking</div>
+            <div class="compare-cell is-us" role="cell">
+              <span class="compare-icon yes" aria-hidden="true">✓</span> Online in under 2 minutes
+            </div>
+            <div class="compare-cell is-them" role="cell">
+              <span class="compare-icon no" aria-hidden="true">✕</span> Phone calls &amp; hold music
+            </div>
+          </div>
+
+          <div class="compare-row" role="row">
+            <div class="compare-feature" role="rowheader">Technician</div>
+            <div class="compare-cell is-us" role="cell">
+              <span class="compare-icon yes" aria-hidden="true">✓</span> Certified specialist, every visit
+            </div>
+            <div class="compare-cell is-them" role="cell">
+              <span class="compare-icon no" aria-hidden="true">✕</span> Whoever's on shift
+            </div>
+          </div>
+
+          <div class="compare-row" role="row">
+            <div class="compare-feature" role="rowheader">Availability</div>
+            <div class="compare-cell is-us" role="cell">
+              <span class="compare-icon yes" aria-hidden="true">✓</span> Same-day slots, most areas
+            </div>
+            <div class="compare-cell is-them" role="cell">
+              <span class="compare-icon no" aria-hidden="true">✕</span> Booked out for days
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <p class="compare-footnote">
+      Estimates based on typical dealership and independent-shop service times. Your experience may vary.
+    </p>
+
+    <div class="compare-cta anim d3">
+      <a href="autovivo-vehicle-select.html" class="btn btn-primary btn-md">Book Now</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================================================
+  GOOGLE REVIEWS SECTION
+========================================================= -->
+<section class="section-reviews" id="reviews" aria-labelledby="reviews-title">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="reviews-header anim d1">
+      <div class="reviews-google-badge">
+        <!-- Google "G" logo -->
+        <svg class="reviews-google-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        <span class="reviews-google-badge-stars">★★★★★</span>
+        <span class="reviews-google-badge-text">Rated 5.0 on Google</span>
+      </div>
+      <h2 class="reviews-headline" id="reviews-title">
+        Real Drivers,<br><span>Real Results.</span>
+      </h2>
+      <p class="reviews-sub">See what customers across Durham Region are saying about us.</p>
+    </div>
+
+    <!-- Carousel -->
+    <div class="reviews-carousel-wrap anim d2">
+      <button class="reviews-nav" id="rev-prev" aria-label="Previous reviews">&#8249;</button>
+
+      <div class="reviews-viewport">
+        <div class="reviews-track" id="reviews-track" role="list">
+
+          <!-- 1 · Sarah L. -->
+          <article class="review-card" role="listitem">
+            <div class="review-card-top">
+              <div class="review-avatar" style="background:#2E7D32;" aria-hidden="true">SL</div>
+              <div>
+                <div class="review-name">Sarah L.</div>
+                <div class="review-source">Google Review</div>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 stars">★★★★★</div>
+            <p class="review-body">"Amazing service. The mechanic came to my driveway and fixed my brakes in under an hour."</p>
+          </article>
+
+          <!-- 2 · Heather -->
+          <article class="review-card" role="listitem">
+            <div class="review-card-top">
+              <div class="review-avatar" style="background:#1565C0;" aria-hidden="true">H</div>
+              <div>
+                <div class="review-name">Heather</div>
+                <div class="review-source">Google Review</div>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 stars">★★★★★</div>
+            <p class="review-body">My car wouldn't start and it turned out to be a bad alternator. The mechanic came right to my location, diagnosed it quickly, and had the replacement done efficiently. No upselling — just honest work and solid communication throughout. Super convenient.</p>
+          </article>
+
+          <!-- 3 · Jeff B. -->
+          <article class="review-card" role="listitem">
+            <div class="review-card-top">
+              <div class="review-avatar" style="background:#E65100;" aria-hidden="true">JB</div>
+              <div>
+                <div class="review-name">Jeff B.</div>
+                <div class="review-source">Google Review</div>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 stars">★★★★★</div>
+            <p class="review-body">Booked an oil change and tire change, and they came right to my driveway in Scarborough. The technician was on time, friendly, and worked efficiently — done in about an hour while I stayed inside working. Pricing was fair and exactly as listed. This is 100% how I'll be servicing my car going forward.</p>
+          </article>
+
+          <!-- 4 · Shawn -->
+          <article class="review-card" role="listitem">
+            <div class="review-card-top">
+              <div class="review-avatar" style="background:#6A1B9A;" aria-hidden="true">S</div>
+              <div>
+                <div class="review-name">Shawn</div>
+                <div class="review-source">Google Review</div>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 stars">★★★★★</div>
+            <p class="review-body">Got a new infotainment system installed and the service was excellent. The mechanic was on time, professional, and did a clean installation. Everything works perfectly and was explained clearly before he left. Highly recommend.</p>
+          </article>
+
+          <!-- 5 · Shania M. -->
+          <article class="review-card" role="listitem">
+            <div class="review-card-top">
+              <div class="review-avatar" style="background:#00695C;" aria-hidden="true">SM</div>
+              <div>
+                <div class="review-name">Shania M.</div>
+                <div class="review-source">Google Review</div>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 stars">★★★★★</div>
+            <p class="review-body">"Fast, clean, and affordable. Will definitely be using them again."</p>
+          </article>
+
+          <!-- 6 · Alex -->
+          <article class="review-card" role="listitem">
+            <div class="review-card-top">
+              <div class="review-avatar" style="background:#B71C1C;" aria-hidden="true">A</div>
+              <div>
+                <div class="review-name">Alex</div>
+                <div class="review-source">Google Review</div>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 stars">★★★★★</div>
+            <p class="review-body">"Reliable, honest, and professional auto service — delivering high quality care at a fair price, right when you need it."</p>
+          </article>
+
+          <!-- 7 · Alyssa -->
+          <article class="review-card" role="listitem">
+            <div class="review-card-top">
+              <div class="review-avatar" style="background:#F57F17;" aria-hidden="true">A</div>
+              <div>
+                <div class="review-name">Alyssa</div>
+                <div class="review-source">Google Review</div>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 stars">★★★★★</div>
+            <p class="review-body">"Way better than going to a shop. Booked online and they came to my condo in Scarborough. Highly recommend."</p>
+          </article>
+
+          <!-- 8 · Dylan G. -->
+          <article class="review-card" role="listitem">
+            <div class="review-card-top">
+              <div class="review-avatar" style="background:#1565C0;" aria-hidden="true">DG</div>
+              <div>
+                <div class="review-name">Dylan G.</div>
+                <div class="review-source">Google Review</div>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 stars">★★★★★</div>
+            <p class="review-body">Got my brakes serviced and the experience was great. The mechanic was punctual, explained what needed to be replaced, and completed the job quickly and professionally. The car feels much safer — braking is smooth again. Really convenient mobile service.</p>
+          </article>
+
+          <!-- 9 · Shuaib S. -->
+          <article class="review-card" role="listitem">
+            <div class="review-card-top">
+              <div class="review-avatar" style="background:#2E7D32;" aria-hidden="true">SS</div>
+              <div>
+                <div class="review-name">Shuaib S.</div>
+                <div class="review-source">Google Review</div>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 stars">★★★★★</div>
+            <p class="review-body">I had a minor brake issue and thought I'd have to take my car to a shop. These guys came to my driveway, diagnosed the problem, and fixed it in under an hour. Honest, transparent, and very friendly — highly recommend this mobile auto hub.</p>
+          </article>
+
+          <!-- 10 · Jamal -->
+          <article class="review-card" role="listitem">
+            <div class="review-card-top">
+              <div class="review-avatar" style="background:#00695C;" aria-hidden="true">J</div>
+              <div>
+                <div class="review-name">Jamal</div>
+                <div class="review-source">Google Review</div>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 stars">★★★★★</div>
+            <p class="review-body">I was honestly skeptical at first, but this was one of the easiest car service experiences I've had. Booked an oil change and they came right to my place in Pickering. The technician was professional, explained everything clearly, and didn't try to upsell anything unnecessary.</p>
+          </article>
+
+          <!-- 11 · Arun -->
+          <article class="review-card" role="listitem">
+            <div class="review-card-top">
+              <div class="review-avatar" style="background:#6A1B9A;" aria-hidden="true">AR</div>
+              <div>
+                <div class="review-name">Arun</div>
+                <div class="review-source">Google Review</div>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 stars">★★★★★</div>
+            <p class="review-body">Great service from start to finish. Booking was simple, communication was clear, and they arrived exactly when they said they would. Got my battery replaced without having to leave my house in Ajax. Huge time saver.</p>
+          </article>
+
+        </div><!-- /reviews-track -->
+      </div><!-- /reviews-viewport -->
+
+      <button class="reviews-nav" id="rev-next" aria-label="Next reviews">&#8250;</button>
+    </div><!-- /reviews-carousel-wrap -->
+
+    <!-- Dot indicators -->
+    <div class="reviews-dots" id="reviews-dots" role="tablist" aria-label="Review pages"></div>
+
+  </div><!-- /container -->
+</section>
+
+<script>
+(function () {
+  const track    = document.getElementById('reviews-track');
+  const dotsWrap = document.getElementById('reviews-dots');
+  const btnPrev  = document.getElementById('rev-prev');
+  const btnNext  = document.getElementById('rev-next');
+  const cards    = Array.from(track.children);
+  const CARDS_PER_PAGE = window.innerWidth < 640 ? 1 : 3;
+  const TOTAL    = cards.length;
+  const PAGES    = Math.ceil(TOTAL / CARDS_PER_PAGE);
+  let current    = 0;
+  let autoTimer;
+
+  // Build dots
+  for (let i = 0; i < PAGES; i++) {
+    const d = document.createElement('button');
+    d.className = 'reviews-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('role', 'tab');
+    d.setAttribute('aria-label', 'Page ' + (i + 1));
+    d.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    d.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(d);
+  }
+
+  function getCardWidth() {
+    if (!cards[0]) return 0;
+    const style = getComputedStyle(track);
+    const gap = parseFloat(style.gap) || 20;
+    return cards[0].offsetWidth + gap;
+  }
+
+  function goTo(page) {
+    current = Math.max(0, Math.min(page, PAGES - 1));
+    const offset = current * CARDS_PER_PAGE * getCardWidth();
+    track.style.transform = 'translateX(-' + offset + 'px)';
+
+    // Update dots
+    Array.from(dotsWrap.children).forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+      d.setAttribute('aria-selected', i === current ? 'true' : 'false');
+    });
+
+    btnPrev.disabled = current === 0;
+    btnNext.disabled = current === PAGES - 1;
+  }
+
+  function next() { goTo(current < PAGES - 1 ? current + 1 : 0); }
+  function prev() { goTo(current > 0 ? current - 1 : PAGES - 1); }
+
+  btnPrev.addEventListener('click', () => { clearInterval(autoTimer); prev(); startAuto(); });
+  btnNext.addEventListener('click', () => { clearInterval(autoTimer); next(); startAuto(); });
+
+  function startAuto() {
+    autoTimer = setInterval(next, 5000);
+  }
+
+  // Pause on hover
+  track.closest('.reviews-carousel-wrap').addEventListener('mouseenter', () => clearInterval(autoTimer));
+  track.closest('.reviews-carousel-wrap').addEventListener('mouseleave', startAuto);
+
+  // Touch / swipe support
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) { clearInterval(autoTimer); dx < 0 ? next() : prev(); startAuto(); }
+  }, { passive: true });
+
+  goTo(0);
+  startAuto();
+})();
+</script>
+
+<!-- =========================================================
+  CTA SECTION
+========================================================= -->
+<section class="section-cta" id="booking" aria-labelledby="cta-title">
+  <div class="cta-ring"   aria-hidden="true"></div>
+  <div class="cta-ring cta-ring-2" aria-hidden="true"></div>
+
+  <div class="cta-box">
+    <span class="eyebrow anim d1">Ready to Get Started?</span>
+    <h2 class="cta-headline anim d2" id="cta-title">
+      Great Service<br>
+      Starts With<br>
+      <span>One Click.</span>
+    </h2>
+    <p class="cta-body anim d3">
+      Join thousands of drivers who've discovered a better way to take care of their vehicles. Book your first service today — it only takes a minute, and we'll handle everything else.
+    </p>
+    <div class="anim d4">
+      <a href="autovivo-vehicle-select.html" class="btn btn-primary btn-xl">Book Now</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+  FOOTER
+========================================================= -->
+<footer class="footer" id="contact" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-grid">
+
+      <!-- Brand Column -->
+      <div>
+        <img src="LOGO.PNG" alt="AutoVivo" class="footer-logo-img">
+        <p class="footer-tagline">
+          Professional mobile auto repair and maintenance — delivered directly to your doorstep. Wherever you are, we've got you covered.
+        </p>
+        <nav aria-label="Social media links">
+          <div class="footer-social">
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/autovivocanada/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="currentColor" stroke-width="1.75"/>
+                <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.75"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+              </svg>
+            </a>
+            <!-- TikTok -->
+            <a href="#" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
+              </svg>
+            </a>
+            <!-- X / Twitter -->
+            <a href="#" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (formerly Twitter)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <!-- Facebook -->
+            <a href="#" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.514c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+              </svg>
+            </a>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Site Map Column -->
+      <div>
+        <p class="footer-col-title">Site Map</p>
+        <nav aria-label="Footer site map">
+          <ul class="footer-links" role="list">
+            <li><a href="autovivo-home.html">Home</a></li>
+            <li><a href="autovivo-services.html">Services</a></li>
+            <li><a href="#services">About</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Contact Column -->
+      <div>
+        <p class="footer-col-title">Get In Touch</p>
+        <ul class="footer-links" role="list">
+          <li><a href="tel:+16478784425">+1 (647) 878-4425</a></li>
+          <li><a href="mailto:autovivohq@gmail.com">autovivohq@gmail.com</a></li>
+          <li><a href="#" style="pointer-events:none; cursor:default;">50 Upper Rouge Trail, Scarborough, ON M1B 6K4</a></li>
+          <li><a href="#" style="pointer-events:none; cursor:default;">Mon – Sat &nbsp;·&nbsp; 7am – 7pm</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Footer Bottom Bar -->
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 AutoVivo. All rights reserved.</p>
+      <nav aria-label="Legal links">
+        <div class="footer-legal">
+          <a href="autovivo-under-construction.html">Privacy Policy</a>
+          <span>·</span>
+          <a href="autovivo-under-construction.html">Terms</a>
+          <span>·</span>
+          <a href="autovivo-under-construction.html">Cancellation Policy</a>
+        </div>
+      </nav>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- =========================================================
+  FLOATING RESUME CART
+========================================================= -->
+<style>
+.floating-cart{position:fixed;bottom:28px;right:28px;z-index:150;display:none;flex-direction:column;align-items:flex-end;gap:8px}
+.floating-cart.visible{display:flex}
+.floating-cart-bubble{display:flex;align-items:center;gap:10px;background:var(--color-neutral-000);color:#fff;border-radius:var(--radius-full);padding:12px 20px 12px 16px;box-shadow:0 4px 24px rgba(0,0,0,.18);cursor:pointer;text-decoration:none;transition:transform .2s var(--ease-out),box-shadow .2s var(--ease-out)}
+.floating-cart-bubble:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.22)}
+.floating-cart-icon{width:36px;height:36px;border-radius:var(--radius-full);background:var(--color-brand-primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
+.floating-cart-icon svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.floating-cart-count{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;background:#fff;color:var(--color-brand-primary);font-size:10px;font-weight:700;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;padding:0 4px}
+.floating-cart-text{display:flex;flex-direction:column;gap:1px}
+.floating-cart-label{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);line-height:1}
+.floating-cart-detail{font-size:0.875rem;font-weight:500;color:#fff;line-height:1.3}
+.floating-cart-dismiss{width:28px;height:28px;border-radius:var(--radius-full);background:var(--color-neutral-200);border:none;color:var(--color-neutral-400);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;align-self:center}
+.floating-cart-dismiss:hover{background:var(--color-neutral-100);color:#fff}
+</style>
+
+<div class="floating-cart" id="floating-cart">
+  <a href="autovivo-service-select.html" class="floating-cart-bubble" id="floating-cart-bubble">
+    <div class="floating-cart-icon">
+      <svg viewBox="0 0 16 16"><circle cx="6" cy="14" r="1"/><circle cx="13" cy="14" r="1"/><path d="M1 1h2l1.7 8.5a1 1 0 0 0 1 .8h7.1a1 1 0 0 0 1-.7L15 4H5"/></svg>
+      <span class="floating-cart-count" id="floating-cart-count">0</span>
+    </div>
+    <div class="floating-cart-text">
+      <span class="floating-cart-label">Resume booking</span>
+      <span class="floating-cart-detail" id="floating-cart-detail">Your selections are saved</span>
+    </div>
+  </a>
+  <button class="floating-cart-dismiss" id="floating-cart-dismiss" aria-label="Dismiss">✕</button>
+</div>
+
+<!-- =========================================================
+  SCRIPTS
+========================================================= -->
+<script>
+  /* ----- Mobile Nav Toggle ----- */
+  const toggle   = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+  const backdrop = document.getElementById('nav-backdrop');
+  const ICON_MENU  = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="2" y1="5" x2="16" y2="5"/><line x1="2" y1="9" x2="16" y2="9"/><line x1="2" y1="13" x2="16" y2="13"/></svg>';
+  const ICON_CLOSE = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="2" y1="2" x2="16" y2="16"/><line x1="16" y1="2" x2="2" y2="16"/></svg>';
+
+  function openMenu() {
+    navLinks.classList.add('open');
+    backdrop.classList.add('visible');
+    toggle.innerHTML = ICON_CLOSE;
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    navLinks.classList.remove('open');
+    backdrop.classList.remove('visible');
+    toggle.innerHTML = ICON_MENU;
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  toggle.addEventListener('click', () => navLinks.classList.contains('open') ? closeMenu() : openMenu());
+  backdrop.addEventListener('click', closeMenu);
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  /* ----- Scroll-triggered Animations ----- */
+  const animEls = document.querySelectorAll('.anim');
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    animEls.forEach(el => {
+      el.style.animationPlayState = 'paused';
+      io.observe(el);
+    });
+  }
+
+  /* ----- Sticky Nav Shadow on Scroll ----- */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      navbar.style.boxShadow = '0 4px 32px rgba(0,0,0,0.10)';
+    } else {
+      navbar.style.boxShadow = 'none';
+    }
+  }, { passive: true });
+
+  /* ----- Floating Resume Cart ----- */
+  (function () {
+    try {
+      const vehicle = JSON.parse(sessionStorage.getItem('autovivo_vehicle'));
+      const cartRaw = sessionStorage.getItem('autovivo_cart');
+      const cart    = cartRaw ? JSON.parse(cartRaw) : null;
+      const count   = cart ? (cart.pkg ? 1 : 0) + (cart.services ? cart.services.length : 0) : 0;
+      const inBooking = sessionStorage.getItem('autovivo_in_booking') === '1';
+
+      if (!vehicle || count === 0 || !inBooking) return;
+
+      const el      = document.getElementById('floating-cart');
+      const countEl = document.getElementById('floating-cart-count');
+      const detail  = document.getElementById('floating-cart-detail');
+      const dismiss = document.getElementById('floating-cart-dismiss');
+
+      countEl.textContent = count;
+
+      const parts = [];
+      if (cart.pkg) parts.push(cart.pkg.tier + ' Package');
+      if (cart.services && cart.services.length) parts.push(cart.services.length + ' service' + (cart.services.length !== 1 ? 's' : ''));
+      detail.textContent = parts.join(' + ');
+
+      el.classList.add('visible');
+
+      dismiss.addEventListener('click', () => {
+        el.classList.remove('visible');
+      });
+    } catch(e) {}
+  })();
+</script>
+
+</body>
+</html>

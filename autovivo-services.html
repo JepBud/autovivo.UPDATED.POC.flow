@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — AutoVivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+
+  /* ── TOKENS ── */
+  :root {
+    --color-brand-primary:    #4A7C10;
+    --color-brand-primary-bg: #E8F7D2;
+    --color-brand-secondary:  #2D3A06;
+    --color-brand-lime:       #D2FD9C;
+    --color-neutral-900:      #FFFFFF;
+    --color-neutral-800:      #F7F7F5;
+    --color-neutral-700:      #EFEFEB;
+    --color-neutral-600:      #E0E0DA;
+    --color-neutral-400:      #8C8C86;
+    --color-neutral-200:      #3D3D3A;
+    --color-neutral-100:      #1A1A18;
+    --color-neutral-000:      #0A0A08;
+    --font-display:  'Montserrat', sans-serif;
+    --font-body:     'DM Sans', sans-serif;
+    --text-xs:   .75rem; --text-sm: .875rem; --text-base: 1rem;
+    --text-lg:  1.125rem; --text-xl: 1.25rem; --text-2xl: 1.5rem;
+    --text-3xl: 2rem;    --text-4xl: 2.75rem;
+    --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;
+    --space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;
+    --space-12:48px;--space-16:64px;--space-20:80px;
+    --radius-sm:4px;--radius-md:8px;--radius-lg:16px;
+    --radius-xl:24px;--radius-full:9999px;
+    --shadow-sm: 0 1px 4px rgba(0,0,0,.06),0 2px 8px rgba(0,0,0,.04);
+    --shadow-md: 0 2px 12px rgba(0,0,0,.08),0 4px 24px rgba(0,0,0,.05);
+    --ease-out: cubic-bezier(.16,1,.3,1);
+    --duration-fast: 150ms; --duration-base: 250ms;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--color-neutral-900);
+    color: var(--color-neutral-100);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    background: rgba(255,255,255,.92);
+    border-bottom: 1px solid var(--color-neutral-600);
+    padding: 0 var(--space-8);
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-sm);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { display: flex; align-items: center; text-decoration: none; }
+  .nav-logo-img { height: 36px; width: auto; display: block; }
+  .nav-links { display: flex; align-items: center; gap: var(--space-8); list-style: none; }
+  .nav-links a {
+    font-size: var(--text-sm); font-weight: 500; color: var(--color-neutral-200);
+    text-decoration: none; transition: color var(--duration-fast);
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--color-brand-primary); }
+  .nav-cta {
+    background: var(--color-brand-primary); color: #fff;
+    font-size: var(--text-sm); font-weight: 500; letter-spacing: .05em;
+    text-transform: uppercase; text-decoration: none;
+    padding: var(--space-3) var(--space-5); border-radius: var(--radius-md);
+    transition: all var(--duration-base) var(--ease-out);
+    box-shadow: 0 1px 4px rgba(74,124,16,.2);
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(74,124,16,.28); }
+
+  /* ── HERO ── */
+  .hero {
+    background: rgba(247,247,245,0.80);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-neutral-700);
+    padding: var(--space-20) var(--space-8) var(--space-16);
+    text-align: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: var(--space-2);
+    background: var(--color-brand-primary-bg); color: var(--color-brand-primary);
+    font-size: var(--text-xs); font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full); margin-bottom: var(--space-6);
+  }
+  .hero h1 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.1;
+    letter-spacing: -.02em; color: var(--color-neutral-100); margin-bottom: var(--space-5);
+  }
+  .hero h1 span { color: var(--color-brand-primary); }
+  .hero-sub {
+    font-size: var(--text-lg); color: var(--color-neutral-400);
+    max-width: 520px; margin: 0 auto var(--space-10);
+  }
+
+  /* ── SEARCH ── */
+  .search-wrap {
+    position: relative; max-width: 520px; margin: 0 auto;
+  }
+  .search-icon {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    color: var(--color-neutral-400); pointer-events: none;
+    width: 18px; height: 18px;
+  }
+  .search-input {
+    width: 100%; padding: var(--space-4) var(--space-4) var(--space-4) 48px;
+    background: var(--color-neutral-900); border: 1px solid var(--color-neutral-600);
+    border-radius: var(--radius-lg); color: var(--color-neutral-100);
+    font-family: var(--font-body); font-size: var(--text-base);
+    transition: all var(--duration-base);
+    outline: none; box-shadow: var(--shadow-sm);
+  }
+  .search-input::placeholder { color: var(--color-neutral-400); }
+  .search-input:focus {
+    border-color: var(--color-brand-primary);
+    box-shadow: 0 0 0 3px rgba(74,124,16,.15);
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .page-body {
+    max-width: 1280px; margin: 0 auto;
+    padding: var(--space-12) var(--space-8) var(--space-20);
+  }
+
+  /* ── FILTER PILLS ── */
+  .filter-bar {
+    display: flex; gap: var(--space-2); flex-wrap: wrap;
+    margin-bottom: var(--space-10);
+    padding-bottom: var(--space-8);
+    border-bottom: 1px solid var(--color-neutral-700);
+  }
+  .filter-pill {
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-neutral-600);
+    background: transparent;
+    font-family: var(--font-body); font-size: var(--text-sm); font-weight: 500;
+    color: var(--color-neutral-200); cursor: pointer;
+    transition: all var(--duration-fast); white-space: nowrap;
+  }
+  .filter-pill:hover {
+    border-color: var(--color-brand-primary);
+    color: var(--color-brand-primary);
+    background: var(--color-brand-primary-bg);
+  }
+  .filter-pill.active {
+    background: var(--color-brand-primary);
+    border-color: var(--color-brand-primary);
+    color: #fff;
+  }
+
+  /* ── RESULTS COUNT ── */
+  .results-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: var(--space-6); gap: var(--space-4); flex-wrap: wrap;
+  }
+  .results-count {
+    font-size: var(--text-sm); color: var(--color-neutral-400);
+  }
+  .results-count strong { color: var(--color-neutral-100); }
+
+  /* ── GRID ── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+
+  /* ── SERVICE CARD ── */
+  .svc-card {
+    background: var(--color-neutral-900);
+    border: 1px solid var(--color-neutral-700);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: all var(--duration-base) var(--ease-out);
+    animation: fadeUp .4s var(--ease-out) both;
+  }
+  .svc-card:hover {
+    border-color: var(--color-brand-primary);
+    box-shadow: 0 4px 24px rgba(74,124,16,.1);
+    transform: translateY(-2px);
+  }
+    .svc-card-image {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--color-brand-secondary) 0%, var(--color-brand-primary) 100%);
+    overflow: hidden;
+  }
+  .svc-card-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .5s var(--ease-out);
+  }
+  .svc-card:hover .svc-card-image img {
+    transform: scale(1.04);
+  }
+  .svc-card-image-fallback {
+    display: none;
+    position: absolute; inset: 0;
+    align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--color-brand-secondary) 0%, var(--color-brand-primary) 100%);
+  }
+  .svc-card-image-fallback svg {
+    width: 44px; height: 44px; color: rgba(255,255,255,.7);
+  }
+  .svc-card-body {
+    padding: var(--space-6);
+    display: flex; flex-direction: column;
+    flex: 1;
+  }
+  .svc-card-top {
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+  .svc-cat-badge {
+    font-size: 10px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--color-brand-primary);
+    background: var(--color-brand-primary-bg);
+    padding: 3px 10px; border-radius: var(--radius-full);
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .svc-time {
+    display: flex; align-items: center; gap: 4px;
+    font-size: var(--text-xs); color: var(--color-neutral-400); white-space: nowrap; flex-shrink: 0;
+  }
+  .svc-time svg { width: 12px; height: 12px; flex-shrink: 0; }
+  .svc-name {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--text-base); line-height: 1.3;
+    color: var(--color-neutral-100); margin-bottom: var(--space-3);
+  }
+  .svc-desc {
+    font-size: var(--text-sm); color: var(--color-neutral-400);
+    line-height: 1.6; flex: 1; margin-bottom: var(--space-5);
+  }
+  .svc-book {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: var(--space-2); width: 100%;
+    background: var(--color-neutral-800);
+    border: 1px solid var(--color-neutral-600);
+    color: var(--color-neutral-200);
+    font-family: var(--font-body); font-size: var(--text-xs);
+    font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+    text-decoration: none; padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    transition: all var(--duration-fast);
+  }
+  .svc-book:hover {
+    background: var(--color-brand-primary);
+    border-color: var(--color-brand-primary);
+    color: #fff;
+  }
+  .svc-book svg { width: 12px; height: 12px; }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    grid-column: 1 / -1; text-align: center;
+    padding: var(--space-20) var(--space-8);
+  }
+  .empty-state svg { color: var(--color-neutral-600); margin-bottom: var(--space-4); }
+  .empty-state h3 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--text-2xl); margin-bottom: var(--space-2);
+  }
+  .empty-state p { color: var(--color-neutral-400); }
+
+  
+  /* ── FOOTER ── */
+  .footer { background: var(--color-neutral-800); border-top: 1px solid var(--color-neutral-700); padding: var(--space-16) var(--space-8) var(--space-10); }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--space-16); margin-bottom: var(--space-12); }
+  .footer-logo-img { height: 44px; width: auto; display: block; margin-bottom: var(--space-4); }
+  .footer-tagline { font-size: var(--text-sm); color: var(--color-neutral-400); max-width: 280px; margin-bottom: var(--space-6); }
+  .footer-col-title { font-family: var(--font-body); font-size: var(--text-xs); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--color-neutral-200); margin-bottom: var(--space-5); }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: var(--space-3); }
+  .footer-links a { font-size: var(--text-sm); color: var(--color-neutral-400); text-decoration: none; transition: color .15s; }
+  .footer-links a:hover { color: var(--color-brand-primary); }
+  .footer-social { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+  .social-link { width: 42px; height: 42px; border-radius: var(--radius-md); border: 1px solid var(--color-neutral-600); display: flex; align-items: center; justify-content: center; color: var(--color-neutral-400); text-decoration: none; transition: all 150ms; }
+  .social-link:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); background: var(--color-brand-primary-bg); }
+  .footer-bottom { border-top: 1px solid var(--color-neutral-700); padding-top: var(--space-6); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4); }
+  .footer-copy { font-size: var(--text-xs); color: var(--color-neutral-400); }
+  .footer-legal { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+  .footer-legal a { font-size: var(--text-xs); color: var(--color-neutral-400); text-decoration: none; transition: color .15s; }
+  .footer-legal a:hover { color: var(--color-brand-primary); }
+  .footer-legal span { color: var(--color-neutral-600); font-size: var(--text-xs); }
+  @media (max-width: 768px) {
+    .footer { padding: var(--space-12) var(--space-5) var(--space-8); }
+    .footer-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+  }
+
+  /* ── ANIMATION ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .nav { padding: 0 var(--space-5); }
+    .nav-links, .nav-cta { display: none; }
+    .hero { padding: var(--space-12) var(--space-5) var(--space-10); }
+    .page-body { padding: var(--space-8) var(--space-5) var(--space-16); }
+    .services-grid { grid-template-columns: 1fr; }
+    .footer { padding: var(--space-12) var(--space-5) var(--space-8); }
+    .footer-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="autovivo-home.html" class="nav-logo">
+    <img src="LOGO.PNG" alt="AutoVivo" class="nav-logo-img">
+  </a>
+  <ul class="nav-links">
+    <li><a href="autovivo-home.html">Home</a></li>
+    <li><a href="autovivo-services.html" class="active">Services</a></li>
+    <li><a href="autovivo-gallery.html">Gallery</a></li>
+    <li><a href="autovivo-home.html#services">About</a></li>
+    <li><a href="autovivo-home.html#contact">Contact</a></li>
+  </ul>
+  <a href="autovivo-vehicle-select.html" class="nav-cta">Book Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span style="width:6px;height:6px;border-radius:50%;background:var(--color-brand-primary);display:inline-block;"></span>
+    Mobile Auto Service
+  </div>
+  <h1>Everything your car<br><span>needs, at your door.</span></h1>
+  <p class="hero-sub">Browse our full catalogue of services — from quick oil changes to full engine work — all done at your location.</p>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input class="search-input" id="search-input" type="search" placeholder="Search services e.g. Oil Change, Brakes…" autocomplete="off">
+  </div>
+</section>
+
+<!-- BODY -->
+<main class="page-body">
+
+  <!-- Filter pills -->
+  <div class="filter-bar" id="filter-bar">
+    <button class="filter-pill active" data-cat="All">All</button>
+  </div>
+
+  <!-- Results header -->
+  <div class="results-header">
+    <p class="results-count" id="results-count"><strong>0</strong> services</p>
+  </div>
+
+  <!-- Grid -->
+  <div class="services-grid" id="services-grid"></div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer" id="contact" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-grid">
+
+      <!-- Brand -->
+      <div>
+        <img src="LOGO.PNG" alt="AutoVivo" class="footer-logo-img">
+        <p class="footer-tagline">Professional mobile auto repair and maintenance — delivered directly to your doorstep. Wherever you are, we've got you covered.</p>
+        <nav aria-label="Social media links">
+          <div class="footer-social">
+            <a href="https://www.instagram.com/autovivocanada/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5.5" stroke="currentColor" stroke-width="1.75"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.75"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (formerly Twitter)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61592779245894" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.514c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+            </a>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Site Map -->
+      <div>
+        <p class="footer-col-title">Site Map</p>
+        <nav aria-label="Footer site map">
+          <ul class="footer-links" role="list">
+            <li><a href="autovivo-home.html">Home</a></li>
+            <li><a href="autovivo-services.html">Services</a></li>
+            <li><a href="autovivo-gallery.html">Gallery</a></li>
+            <li><a href="autovivo-home.html#services">About</a></li>
+            <li><a href="autovivo-home.html#reviews">Reviews</a></li>
+            <li><a href="autovivo-home.html#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Get In Touch -->
+      <div>
+        <p class="footer-col-title">Get In Touch</p>
+        <ul class="footer-links" role="list">
+          <li><a href="tel:+16478784425">+1 (647) 878-4425</a></li>
+          <li><a href="mailto:autovivohq@gmail.com">autovivohq@gmail.com</a></li>
+          <li><a href="#" style="pointer-events:none; cursor:default;">50 Upper Rouge Trail, Scarborough, ON M1B 6K4</a></li>
+          <li><a href="#" style="pointer-events:none; cursor:default;">Mon – Sat  ·  7am – 7pm</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 AutoVivo. All rights reserved.</p>
+      <nav aria-label="Legal links">
+        <div class="footer-legal">
+          <a href="autovivo-under-construction.html">Privacy Policy</a>
+          <span>·</span>
+          <a href="autovivo-under-construction.html">Terms</a>
+          <span>·</span>
+          <a href="autovivo-under-construction.html">Cancellation Policy</a>
+        </div>
+      </nav>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+const SERVICES = [
+  {id:300,cat:'Packages',name:'Bronze Package',time:'from $119.95',desc:'Oil Change + Vehicle Health Check. Includes a full 10-point inspection. Small vehicle $119.95 — Large vehicle $149.95.'},
+  {id:301,cat:'Packages',name:'Silver Package',time:'from $159.95',desc:'Oil Change + Alignment Inspection + Vehicle Health Check. Our most popular bundle. Small vehicle $159.95 — Large vehicle $189.95.'},
+  {id:302,cat:'Packages',name:'Gold Package',time:'from $319.95',desc:'Oil Change + Alignment Inspection + Brake Fluid Flush + Cabin Air Filter + Vehicle Health Check. Complete care bundle. Small vehicle $319.95 — Large vehicle $349.95.'},
+  {id:0,cat:'Popular',icon:'oil',name:'Oil Change',time:'30 min',desc:'Drain the old engine oil, replace it with fresh oil, and install a new oil filter to keep the engine properly lubricated and running smoothly.'},
+  {id:1,cat:'Popular',icon:'tires',name:'Tires (Repair, Replacement & Flat Fix)',time:'30–60 min',desc:'We safely remove and install your tires at your location, ensuring they are properly mounted and ready for the road.'},
+  {id:2,cat:'Popular',icon:'brakePad',name:'Brake Pad Replacement',time:'45–60 min',desc:'Remove worn brake pads and install new ones to restore safe stopping power and prevent damage to the brake rotors.'},
+  {id:3,cat:'Popular',icon:'battery',name:'Battery Replacement',time:'30–45 min',desc:'Remove the old battery and install a new one to ensure the vehicle starts reliably and the electrical system functions properly.'},
+  {id:4,cat:'Popular',icon:'tireRotation',name:'Tire Rotation',time:'20–30 min',desc:'Move tires between the front and rear positions to promote even tire wear and extend the life of the tires.'},
+  {id:5,cat:'Popular',icon:'engineFilter',name:'Engine Air Filter Replacement',time:'15–20 min',desc:'Install a new engine air filter to ensure the engine receives clean air for efficient combustion.'},
+  {id:6,cat:'Popular',icon:'cabinFilter',name:'Cabin Air Filter Replacement',time:'15–20 min',desc:'Replace the cabin air filter to improve air quality entering the vehicle interior through the ventilation system.'},
+  {id:7,cat:'Popular',icon:'sparkPlug',name:'Spark Plug Replacement',time:'30–45 min',desc:'Install new spark plugs to improve engine ignition, fuel efficiency, and overall engine performance.'},
+  {id:8,cat:'Popular',icon:'coolant',name:'Coolant Flush',time:'45–60 min',desc:'Drain old coolant from the cooling system and refill with fresh coolant to help prevent engine overheating and corrosion.'},
+  {id:9,cat:'Popular',icon:'transmission',name:'Transmission Fluid Change',time:'45–60 min',desc:'Replace old transmission fluid with new fluid to help maintain smooth gear shifting and protect the transmission.'},
+  {id:10,cat:'Popular',icon:'brakeFluid',name:'Brake Fluid Flush',time:'30–45 min',desc:'Remove contaminated brake fluid and refill with fresh fluid to maintain proper braking performance and safety.'},
+  {id:11,cat:'Popular',icon:'belt',name:'Serpentine Belt Replacement',time:'30–60 min',desc:'Install a new serpentine belt to restore proper operation of engine-driven components like the alternator and AC.'},
+  {id:12,cat:'Popular',icon:'powerSteering',name:'Power Steering Fluid Replacement',time:'15–20 min',desc:'Check the power steering system and add fluid if necessary to ensure smooth and easy steering.'},
+  {id:13,cat:'Popular',icon:'bulb',name:'Light Bulb Replacement',time:'20–30 min',desc:'Replace faulty or burnt-out headlight or taillight bulbs to restore proper vehicle visibility and road safety.'},
+  {id:14,cat:'Popular',icon:'wiper',name:'Windshield Wiper Replacement',time:'10–15 min',desc:'Install new windshield wiper blades to improve visibility during rain, snow, or windshield cleaning.'},
+  {id:15,cat:'Popular',icon:'alternator',name:'Alternator Replacement',time:'60–90 min',desc:'Remove a faulty alternator and install a new one to restore proper battery charging and electrical system performance.'},
+  {id:16,cat:'Popular',icon:'checkEngine',name:'Check Engine Light Inspection',time:'15–30 min',desc:'Scan the vehicle computer for engine codes, identify potential issues, and reset the check engine light if appropriate.'},
+  {id:17,cat:'Scheduled Maintenance',name:'5,000 km Service',time:'45–60 min',desc:'Routine maintenance service at the 5,000 km interval to keep your vehicle running at its best.'},
+  {id:18,cat:'Scheduled Maintenance',name:'10,000 km Service',time:'60–75 min',desc:'Scheduled inspection and fluid check at the 10,000 km mark.'},
+  {id:19,cat:'Scheduled Maintenance',name:'20,000 km Service',time:'75–90 min',desc:'Mid-interval maintenance covering fluids, filters, and general inspection.'},
+  {id:20,cat:'Scheduled Maintenance',name:'30,000 km Service',time:'90–120 min',desc:'Major maintenance interval covering all fluids, filters, belts, and a comprehensive inspection.'},
+  {id:21,cat:'Scheduled Maintenance',name:'50,000 km Service',time:'120–180 min',desc:'Full-interval maintenance with spark plug check, fluid replacements, and a multi-point inspection.'},
+  {id:22,cat:'Scheduled Maintenance',name:'60,000 km Service',time:'120–180 min',desc:'Comprehensive service covering timing components, fluids, and wear items.'},
+  {id:23,cat:'Scheduled Maintenance',name:'75,000 km Service',time:'90–150 min',desc:'Inspection and service of drivetrain, brakes, and all fluid systems.'},
+  {id:24,cat:'Scheduled Maintenance',name:'100,000 km Service',time:'150–210 min',desc:'Major milestone service with full inspection, fluid replacement, and critical wear component check.'},
+  {id:25,cat:'Scheduled Maintenance',name:'120,000 km Service',time:'150–210 min',desc:'High-mileage maintenance service covering all major systems.'},
+  {id:26,cat:'Scheduled Maintenance',name:'150,000+ km Service',time:'90–120 min',desc:'Ongoing scheduled maintenance for high-mileage vehicles to ensure continued reliability.'},
+  {id:77,cat:'Diagnosis & Testing',name:'Check Engine Light On',time:'30–60 min',desc:'Perform a diagnostic scan and inspection to identify the cause of the check engine light and recommend next steps.'},
+  {id:78,cat:'Diagnosis & Testing',name:'Car Won\'t Start',time:'30–60 min',desc:'Diagnose starting system issues including battery, starter, and electrical faults preventing the engine from turning over.'},
+  {id:79,cat:'Diagnosis & Testing',name:'Car Shaking or Vibrating',time:'45–75 min',desc:'Inspect tires, suspension, and engine components to identify the source of vibrations and restore smooth driving.'},
+  {id:80,cat:'Diagnosis & Testing',name:'Brake Noise (Squeaking or Grinding)',time:'30–60 min',desc:'Inspect brake pads, rotors, and hardware to diagnose noise and ensure safe braking performance.'},
+  {id:81,cat:'Diagnosis & Testing',name:'Car Overheating',time:'45–75 min',desc:'Diagnose cooling system issues including leaks, thermostat, or radiator problems to prevent engine damage.'},
+  {id:82,cat:'Diagnosis & Testing',name:'Strange Noises (Clicking, Knocking)',time:'45–75 min',desc:'Identify abnormal noises from engine, suspension, or drivetrain components to prevent further damage.'},
+  {id:83,cat:'Diagnosis & Testing',name:'Full Diagnosis',time:'60–120 min',desc:'Perform a comprehensive multi-point inspection and diagnostic scan to identify any underlying issues.'},
+  {id:84,cat:'Diagnosis & Testing',name:'Tire Pressure Light On (TPMS)',time:'15–30 min',desc:'Check tire pressures and TPMS sensors to ensure proper inflation and system accuracy.'},
+  {id:85,cat:'Diagnosis & Testing',name:'AC Not Working',time:'45–75 min',desc:'Diagnose AC system issues including refrigerant levels, compressor function, and airflow problems.'},
+  {id:86,cat:'Diagnosis & Testing',name:'Heater Not Working',time:'45–75 min',desc:'Diagnose and repair heating system issues to restore proper cabin heating and comfort.'},
+  {id:87,cat:'Diagnosis & Testing',name:'Oil or Fluid Leak',time:'45–90 min',desc:'Identify the source of leaks and recommend repairs to prevent damage and fluid loss.'},
+  {id:88,cat:'Diagnosis & Testing',name:'Steering Issues',time:'45–75 min',desc:'Inspect steering and suspension components to resolve handling issues and ensure safe control.'},
+  {id:89,cat:'Diagnosis & Testing',name:'Burning Smell from Car',time:'45–75 min',desc:'Identify the source of burning smells to prevent potential mechanical or electrical failures.'},
+  {id:90,cat:'Diagnosis & Testing',name:'Excessive Smoke',time:'45–90 min',desc:'Diagnose engine or exhaust issues based on smoke colour to prevent serious engine damage.'},
+  {id:91,cat:'Diagnosis & Testing',name:'Car Stalling While Driving',time:'60–90 min',desc:'Diagnose fuel, air, or electrical system issues causing the vehicle to stall unexpectedly.'},
+  {id:92,cat:'Diagnosis & Testing',name:'Pre-Purchase Car Inspection',time:'60–90 min',desc:'Thorough inspection of any vehicle before purchase to surface hidden mechanical issues and accident damage.'},
+  {id:94,cat:'Brakes',name:'Brake Pads & Rotors Replacement',time:'60–120 min',desc:'Replace both pads and rotors together for complete brake system restoration and optimal performance.'},
+  {id:95,cat:'Brakes',name:'Brake Shoes Replacement (Rear)',time:'60–90 min',desc:'Replace rear brake shoes to restore proper braking function in drum brake systems.'},
+  {id:96,cat:'Brakes',name:'Brake System Flush',time:'30–60 min',desc:'Flush and replace old brake fluid to maintain braking performance and protect system components.'},
+  {id:97,cat:'Brakes',name:'Parking Brake Adjustment',time:'30–60 min',desc:'Adjust or service the parking brake system to ensure proper hold and safety when parked.'},
+  {id:98,cat:'Brakes',name:'Brake Fluid Top-Up',time:'10–20 min',desc:'Top up brake fluid and perform minor checks to maintain safe braking operation.'},
+  {id:99,cat:'Brakes',name:'General Brake Inspection',time:'30–60 min',desc:'Inspect the full brake system to identify wear, safety issues, and recommended repairs.'},
+  {id:100,cat:'Brakes',name:'Brake Caliper Replacement',time:'60–120 min',desc:'Replace faulty brake calipers to restore proper braking pressure and prevent uneven wear.'},
+  {id:101,cat:'Brakes',name:'Brake Master Cylinder Replacement',time:'90–150 min',desc:'Replace the master cylinder to restore proper hydraulic pressure across the braking system.'},
+  {id:102,cat:'Brakes',name:'Brake Booster Replacement',time:'90–150 min',desc:'Replace the brake booster to restore assisted braking and reduce pedal effort.'},
+  {id:103,cat:'Brakes',name:'Brake Lines / Hose Repair',time:'60–120 min',desc:'Repair or replace damaged brake lines or hoses to ensure safe and leak-free braking.'},
+  {id:104,cat:'Brakes',name:'Wheel Hub Bearing Replacement',time:'60–120 min',desc:'Replace worn wheel hub assembly to eliminate noise and ensure proper wheel rotation and safety.'},
+  {id:105,cat:'Brakes',name:'ABS Sensor Replacement',time:'45–90 min',desc:'Diagnose and repair ABS system issues to restore anti-lock braking functionality and safety.'},
+  {id:106,cat:'Car Buying',name:'Pre-Purchase Inspection',time:'1–2 hours',desc:'Inspect a vehicle before purchase to identify mechanical issues, accident damage, or maintenance concerns.'},
+  {id:107,cat:'Car Buying',name:'Used Car Inspection',time:'1–2 hours',desc:'Perform a comprehensive inspection of a used vehicle to identify mechanical issues and estimate repair needs.'},
+  {id:108,cat:'Electrical & Lights',name:'Car Won\'t Start (Battery / Starter)',time:'30–60 min',desc:'Diagnose no-start issues related to the battery, starter, or electrical system and recommend the fix.'},
+  {id:109,cat:'Electrical & Lights',name:'Dead Battery / Boost',time:'15–30 min',desc:'Provide a battery boost to get your vehicle started and check for underlying issues.'},
+  {id:110,cat:'Electrical & Lights',name:'Battery Replacement',time:'20–30 min',desc:'Replace your vehicle battery to restore reliable starting and electrical performance.'},
+  {id:111,cat:'Electrical & Lights',name:'Charging System Check',time:'30–60 min',desc:'Test the charging system to identify battery drain or alternator-related issues.'},
+  {id:112,cat:'Electrical & Lights',name:'Alternator / Charging System Service',time:'60–120 min',desc:'Service or replace alternator components to ensure consistent power supply.'},
+  {id:113,cat:'Electrical & Lights',name:'Starter Replacement',time:'60–120 min',desc:'Replace a faulty starter motor to restore proper engine starting.'},
+  {id:114,cat:'Electrical & Lights',name:'Lights Not Working',time:'15–45 min',desc:'Diagnose and repair lighting issues including headlights, brake lights, and signals to ensure road safety.'},
+  {id:115,cat:'Electrical & Lights',name:'Dashboard Warning Lights',time:'30–60 min',desc:'Scan and diagnose dashboard warning lights to identify system faults.'},
+  {id:116,cat:'Electrical & Lights',name:'Wipers Not Working',time:'30–60 min',desc:'Diagnose and repair wiper system issues for clear visibility in all conditions.'},
+  {id:117,cat:'Electrical & Lights',name:'Power Locks Not Working',time:'45–75 min',desc:'Diagnose and repair door lock system faults for proper vehicle security.'},
+  {id:118,cat:'Electrical & Lights',name:'Backup Camera / Sensors',time:'45–90 min',desc:'Diagnose and repair parking camera or sensor issues for safe reversing.'},
+  {id:119,cat:'Electrical & Lights',name:'Electrical Diagnosis',time:'60–120 min',desc:'Perform a full electrical system diagnosis to locate faults and recommend repairs.'},
+  {id:120,cat:'Electrical & Lights',name:'Key Fob Battery Replacement',time:'5–10 min',desc:'Replace the key fob battery to restore remote locking and unlocking functionality.'},
+  {id:121,cat:'Electrical & Lights',name:'Horn Replacement',time:'30–60 min',desc:'Replace faulty horn to ensure proper vehicle signalling and safety.'},
+  {id:126,cat:'Engine',name:'Engine Diagnosis',time:'60–120 min',desc:'Perform a full engine diagnostic to identify faults and recommend repairs.'},
+  {id:127,cat:'Engine',name:'Engine Running Rough / Misfiring',time:'45–75 min',desc:'Diagnose misfires caused by ignition, fuel, or air issues to restore smooth engine performance.'},
+  {id:128,cat:'Engine',name:'Engine Won\'t Start',time:'45–75 min',desc:'Diagnose fuel or air supply issues preventing the engine from starting.'},
+  {id:129,cat:'Engine',name:'Engine Overheating',time:'45–75 min',desc:'Identify cooling system or internal issues causing the engine to overheat.'},
+  {id:130,cat:'Engine',name:'Engine Knocking or Ticking Noise',time:'45–90 min',desc:'Diagnose internal or valvetrain noises to prevent serious engine damage.'},
+  {id:131,cat:'Engine',name:'Oil Leak (Engine Area)',time:'45–90 min',desc:'Locate and diagnose oil leaks to prevent engine damage and fluid loss.'},
+  {id:132,cat:'Engine',name:'Spark Plug Replacement / Tune-Up',time:'45–90 min',desc:'Replace spark plugs to improve ignition, efficiency, and performance.'},
+  {id:133,cat:'Engine',name:'Serpentine Belt Replacement',time:'30–60 min',desc:'Replace worn belt to ensure proper operation of engine accessories.'},
+  {id:134,cat:'Engine',name:'Engine Mount Replacement',time:'60–120 min',desc:'Replace worn mounts to reduce vibration and stabilize the engine.'},
+  {id:135,cat:'Engine',name:'Radiator Replacement',time:'90–150 min',desc:'Replace radiator to restore proper cooling and prevent overheating.'},
+  {id:136,cat:'Engine',name:'Water Pump Replacement',time:'90–150 min',desc:'Replace water pump to maintain coolant circulation and engine temperature.'},
+  {id:137,cat:'Engine',name:'Thermostat Replacement',time:'45–90 min',desc:'Replace thermostat to regulate engine temperature properly.'},
+  {id:138,cat:'Engine',name:'Cooling System Flush',time:'30–60 min',desc:'Flush old coolant and contaminants to maintain cooling efficiency.'},
+  {id:139,cat:'Engine',name:'Coolant Leak Repair',time:'60–120 min',desc:'Identify and repair coolant leaks to prevent overheating.'},
+  {id:140,cat:'Engine',name:'Valve Cover Gasket Replacement',time:'60–120 min',desc:'Replace gasket to stop oil leaks from the top of the engine.'},
+  {id:141,cat:'Engine',name:'Head Gasket Repair',time:'300–600 min',desc:'Repair major internal engine damage to restore compression and prevent failure.'},
+  {id:142,cat:'Engine',name:'Oxygen Sensor Replacement',time:'45–90 min',desc:'Replace faulty sensors to optimize fuel mixture and emissions.'},
+  {id:143,cat:'Engine',name:'Timing Chain / Components',time:'180–300 min',desc:'Service or replace timing components to maintain engine synchronization.'},
+  {id:144,cat:'Engine',name:'EGR Valve Service',time:'60–120 min',desc:'Clean or replace EGR system to improve emissions and engine performance.'},
+  {id:161,cat:'Performance',name:'ECU Tuning / Performance Tune',time:'60–120 min',desc:'Reprogram the ECU to improve power, throttle response, and overall engine performance.'},
+  {id:162,cat:'Performance',name:'Cold Air Intake Installation',time:'30–60 min',desc:'Install a cold air intake to increase airflow and enhance engine performance and sound.'},
+  {id:163,cat:'Performance',name:'Performance Exhaust Upgrade',time:'60–120 min',desc:'Install a performance exhaust system to improve sound and exhaust flow.'},
+  {id:164,cat:'Performance',name:'Suspension Upgrade (Lowering Springs / Coilovers)',time:'120–240 min',desc:'Upgrade suspension components to improve handling, stance, and ride quality.'},
+  {id:165,cat:'Performance',name:'Performance Brake Upgrade',time:'60–120 min',desc:'Upgrade brake components for improved stopping power and heat resistance.'},
+  {id:166,cat:'Performance',name:'Remote Starter Installation',time:'90–180 min',desc:'Install a remote starter system for convenient vehicle start from a distance.'},
+  {id:167,cat:'Performance',name:'Apple CarPlay / Android Auto Upgrade',time:'60–120 min',desc:'Upgrade your system to enable smartphone integration for navigation, calls, and media.'},
+  {id:168,cat:'Performance',name:'Aftermarket Stereo / Subwoofer Installation',time:'90–180 min',desc:'Install audio components to enhance sound quality and bass performance.'},
+  {id:169,cat:'Performance',name:'Backup Camera Installation',time:'60–120 min',desc:'Install a backup camera system to improve rear visibility and safety.'},
+  {id:170,cat:'Performance',name:'Dash Cam Installation',time:'30–90 min',desc:'Install dash cam for continuous recording and driving security.'},
+  {id:171,cat:'Performance',name:'LED Lighting Upgrade',time:'30–60 min',desc:'Upgrade lighting to LED for improved visibility and modern styling.'},
+  {id:172,cat:'Performance',name:'Lift Kit Installation',time:'180–360 min',desc:'Install lift kit to increase ground clearance and off-road capability.'},
+  {id:173,cat:'Performance',name:'Wheel & Spacer Installation',time:'30–60 min',desc:'Install wheels or spacers to improve vehicle stance and fitment.'},
+  {id:174,cat:'Performance',name:'Roof Rack Installation',time:'30–60 min',desc:'Install roof rack system for additional cargo carrying capacity.'},
+  {id:175,cat:'Performance',name:'Custom Audio / Speaker Upgrades',time:'90–180 min',desc:'Upgrade speakers and audio components for premium sound quality.'},
+  {id:184,cat:'Doors',name:'Door Won\'t Open / Close',time:'20–45 min',desc:'We inspect your door to identify why it\'s stuck, misaligned, or not closing properly and recommend the right fix.'},
+  {id:185,cat:'Doors',name:'Door Latch Replacement',time:'45–90 min',desc:'We replace the faulty door latch so your door opens and closes securely again.'},
+  {id:186,cat:'Doors',name:'Door Lock Not Working',time:'45–90 min',desc:'We fix or replace the locking mechanism so your door locks and unlocks properly.'},
+  {id:187,cat:'Doors',name:'Exterior Door Handle Replacement',time:'30–60 min',desc:'We replace broken or loose exterior handles so you can open your door from outside normally.'},
+  {id:188,cat:'Doors',name:'Interior Door Handle Replacement',time:'30–60 min',desc:'We replace the inside door handle so you can safely open the door from within the vehicle.'},
+  {id:189,cat:'Doors',name:'Window Regulator / Motor Repair',time:'60–120 min',desc:'We repair or replace the window motor or regulator so your window moves up and down properly.'},
+  {id:190,cat:'Doors',name:'Door Hinge Lubrication',time:'10–20 min',desc:'We lubricate door hinges and moving parts to eliminate squeaks and ensure smooth operation.'},
+  {id:191,cat:'Doors',name:'Door Alignment / Adjustment',time:'30–60 min',desc:'We adjust your door alignment so it closes properly and seals correctly.'},
+  {id:192,cat:'Doors',name:'Trunk / Tailgate Won\'t Open',time:'20–45 min',desc:'We diagnose why your trunk or tailgate won\'t open and determine the required repair.'},
+  {id:193,cat:'Doors',name:'Trunk / Tailgate Latch Replacement',time:'45–90 min',desc:'We replace the faulty latch so your trunk or tailgate opens and closes securely.'},
+  {id:194,cat:'Doors',name:'Trunk Lift Support Replacement',time:'20–40 min',desc:'We replace worn lift supports so your trunk or tailgate stays open safely.'},
+  {id:195,cat:'Doors',name:'Hood Latch / Adjustment',time:'20–45 min',desc:'We repair or adjust the hood latch so it opens and closes safely.'},
+];
+
+const CATEGORIES = ['All', ...new Set(SERVICES.map(s => s.cat))];
+
+/* Build filter pills */
+const filterBar = document.getElementById('filter-bar');
+CATEGORIES.forEach(cat => {
+  if (cat === 'All') return; // already added in HTML
+  const btn = document.createElement('button');
+  btn.className = 'filter-pill';
+  btn.dataset.cat = cat;
+  btn.textContent = cat;
+  filterBar.appendChild(btn);
+});
+
+
+/* State */
+let activeCat = 'All';
+let searchQuery = '';
+
+function esc(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* Original line-icon illustrations for the Popular service cards.
+   Consistent 48x48 viewBox, stroke-based, matches the site's existing icon style. */
+const ICONS = {
+  oil: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6C24 6 12 22 12 30a12 12 0 0 0 24 0C36 22 24 6 24 6Z"/><path d="M18.5 30a5.5 5.5 0 0 0 5.5 5.5" stroke-width="1.6" opacity="0.55"/></svg>',
+  tires: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="6"/><path d="M24 8v4M24 36v4M8 24h4M36 24h4M13.8 13.8l2.8 2.8M31.4 31.4l2.8 2.8M13.8 34.2l2.8-2.8M31.4 16.6l2.8-2.8"/></svg>',
+  brakePad: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="24" r="14"/><circle cx="21" cy="24" r="4"/><path d="M21 12v6M21 30v6M11 22.5l5 1.5-5 1.5M31 22.5l-5 1.5 5 1.5" stroke-width="1.6" opacity="0.55"/><path d="M31 15a11 11 0 0 1 0 18h6.5a1.5 1.5 0 0 0 1.5-1.5v-15a1.5 1.5 0 0 0-1.5-1.5H31Z"/></svg>',
+  battery: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="16" width="30" height="20" rx="3"/><path d="M17 16v-4M31 16v-4"/><path d="M17.5 26h5M20 23.5v5" stroke-width="2.2"/><path d="M28 26h6"/></svg>',
+  tireRotation: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="9"/><circle cx="24" cy="24" r="3"/><path d="M24 5a19 19 0 0 1 18 13"/><path d="M42 12l1-6-6 1.5"/><path d="M24 43a19 19 0 0 1-18-13"/><path d="M6 36l-1 6 6-1.5"/></svg>',
+  engineFilter: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="10" width="32" height="28" rx="3"/><path d="M15 10v28M21.5 10v28M28 10v28M34.5 10v28" stroke-width="1.6" opacity="0.55"/></svg>',
+  cabinFilter: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="32" height="21" rx="3"/><path d="M8 14.5h32M8 20.5h32M8 26.5h32" stroke-width="1.6" opacity="0.55"/><path d="M16 38c2.5-3.5 13.5-3.5 16 0"/></svg>',
+  sparkPlug: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 6h10v8H19z"/><path d="M20.5 14h7v10h-7z"/><path d="M22 24h4v8a2 2 0 0 1-4 0v-8Z"/><path d="M19 39l3-4.5M29 39l-3-4.5"/></svg>',
+  coolant: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="10" width="24" height="26" rx="2"/><path d="M13 10v26M19 10v26M25 10v26" stroke-width="1.6" opacity="0.55"/><path d="M36 23c0 0-5.5 6.3-5.5 10a5.5 5.5 0 0 0 11 0C41.5 29.3 36 23 36 23Z"/></svg>',
+  transmission: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="24" r="9"/><circle cx="21" cy="24" r="3.2"/><path d="M21 9v4M21 35v4M32.7 12.3l-2.8 2.8M11.1 33.9l-2.8 2.8M36 24h-4M6 24h4M32.7 35.7l-2.8-2.8M11.1 14.1l-2.8-2.8"/><path d="M36 30c0 0-4 4.6-4 7.3a4 4 0 0 0 8 0C40 34.6 36 30 36 30Z"/></svg>',
+  brakeFluid: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h12v6l3 3v21a2 2 0 0 1-2 2H17a2 2 0 0 1-2-2V17l3-3V8Z"/><path d="M16 27h16" stroke-width="1.6" opacity="0.55"/><path d="M18 8h12" stroke-width="2.2"/></svg>',
+  belt: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="14" width="30" height="20" rx="10"/><circle cx="16" cy="24" r="5"/><circle cx="32" cy="24" r="5"/></svg>',
+  powerSteering: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="19" cy="23" r="12"/><circle cx="19" cy="23" r="3"/><path d="M19 11v9M10.4 30l7-5M27.6 30l-7-5"/><path d="M38 21c0 0-4.5 5.2-4.5 8.3a4.5 4.5 0 0 0 9 0C42.5 26.2 38 21 38 21Z"/></svg>',
+  bulb: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6a12 12 0 0 0-7 21.8c1.4 1 2 2.6 2 4.2v1h10v-1c0-1.6.6-3.2 2-4.2A12 12 0 0 0 24 6Z"/><path d="M20 38h8M21 42h6"/></svg>',
+  wiper: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 38a24 24 0 0 1 24-24"/><path d="M40 38a24 24 0 0 0-6.5-16.4" stroke-width="1.6" opacity="0.45"/><path d="M8 38h32"/><circle cx="32" cy="14" r="2.2" fill="currentColor" stroke="none"/></svg>',
+  alternator: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="15"/><path d="M26 13l-8.5 12.5H23L21 34l9-13h-5.5L26 13Z" stroke-linejoin="round"/></svg>',
+  checkEngine: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 29v-7a4 4 0 0 1 4-4h4v-4h9v4h4a4 4 0 0 1 4 4v2h3v6h-3v1a4 4 0 0 1-4 4H17a4 4 0 0 1-4-4v-2H9Z"/><circle cx="37" cy="12" r="7" fill="#F0A73C" stroke="none"/><path d="M37 8.5v5" stroke="#2D3A06" stroke-width="2.2"/><circle cx="37" cy="16" r="1.1" fill="#2D3A06" stroke="none"/></svg>'
+};
+
+
+const CAT_IMAGES = {
+  'Packages':              'https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=600&h=360&q=80',
+  'Popular':               'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=600&h=360&q=80',
+  'Scheduled Maintenance': 'https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=600&h=360&q=80',
+  'Diagnosis & Testing':   'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=600&h=360&q=80',
+  'Brakes':                'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&h=360&q=80',
+  'Electrical & Lights':   'https://images.unsplash.com/photo-1617886322168-72b886573c35?auto=format&fit=crop&w=600&h=360&q=80',
+  'Engine':                'https://images.unsplash.com/photo-1504222490345-c075b7098b47?auto=format&fit=crop&w=600&h=360&q=80',
+  'Performance':           'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=600&h=360&q=80',
+  'Doors':                 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&h=360&q=80',
+  'Car Buying':            'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=600&h=360&q=80',
+};
+
+function render() {
+  const grid = document.getElementById('services-grid');
+  const q = searchQuery.toLowerCase().trim();
+
+  const filtered = SERVICES.filter(s => {
+    const catMatch = activeCat === 'All' || s.cat === activeCat;
+    const textMatch = !q || s.name.toLowerCase().includes(q) || s.cat.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q);
+    return catMatch && textMatch;
+  });
+
+  document.getElementById('results-count').innerHTML =
+    `<strong>${filtered.length}</strong> service${filtered.length !== 1 ? 's' : ''}`;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/>
+        </svg>
+        <h3>No services found</h3>
+        <p>Try a different search term or category.</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((s, i) => {
+    const img = CAT_IMAGES[s.cat] || '';
+    return `
+    <div class="svc-card" style="animation-delay:${Math.min(i * 30, 300)}ms">
+      <div class="svc-card-image" aria-hidden="true">
+        ${img ? `<img
+          src="${img}"
+          alt="${s.cat} service"
+          loading="lazy"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="svc-card-image-fallback">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>` : `
+        <div class="svc-card-image-fallback" style="display:flex;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>`}
+      </div>
+      <div class="svc-card-body">
+        <div class="svc-card-top">
+          <span class="svc-cat-badge">${esc(s.cat)}</span>
+          ${s.time ? `<span class="svc-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>
+            </svg>
+            ${esc(s.time)}
+          </span>` : ''}
+        </div>
+        <h3 class="svc-name">${esc(s.name)}</h3>
+        <p class="svc-desc">${esc(s.desc)}</p>
+        <a href="autovivo-vehicle-select.html" class="svc-book">
+          Book Now
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  `;
+  }).join('');
+}
+
+/* Filter pill clicks */
+filterBar.addEventListener('click', e => {
+  const btn = e.target.closest('.filter-pill');
+  if (!btn) return;
+  activeCat = btn.dataset.cat;
+  filterBar.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+});
+
+/* Search */
+document.getElementById('search-input').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
